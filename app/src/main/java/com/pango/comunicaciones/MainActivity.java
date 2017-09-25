@@ -1,5 +1,6 @@
 package com.pango.comunicaciones;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         FragmentInicio.OnFragmentInteractionListener,
-        FragmentNoticias.OnFragmentInteractionListener {
+        FragmentNoticias.OnFragmentInteractionListener{
 
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
@@ -49,6 +50,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
+        startActivity(toReservaTicketFiltro);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
