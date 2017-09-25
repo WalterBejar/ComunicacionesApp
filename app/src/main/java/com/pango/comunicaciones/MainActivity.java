@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
-        startActivity(toReservaTicketFiltro);
+        //startActivity(toReservaTicketFiltro);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

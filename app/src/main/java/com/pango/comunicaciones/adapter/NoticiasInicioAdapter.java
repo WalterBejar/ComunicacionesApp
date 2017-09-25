@@ -46,7 +46,7 @@ public class NoticiasInicioAdapter extends ArrayAdapter<NoticiasModel> {
         nFecha.setText(tempFecha);
         nTitulo.setText(tempTitulo);
 
-        int ds = data.get(position).getFiledata().size();
+        //int ds = data.get(position).getFiledata().size();
 
         /*if(ds==0) {
         }else {*/

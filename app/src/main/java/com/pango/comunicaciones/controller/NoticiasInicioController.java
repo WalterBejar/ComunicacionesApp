@@ -30,6 +30,14 @@ public class NoticiasInicioController extends AsyncTask<String,Void,Void> {
         this.v = v;
         fragmentInicio = Frag;
         listViewNoticias = (ListView) v.findViewById(R.id.listViewNoticias);
+
+        for (int i = 0; i < 10; i++)
+        {
+            NoticiasModel noticia = new NoticiasModel();
+            noticia.setTitulo("Este es el titulo de la noticia Nro: " + (i+1));
+            noticia.setFecha("21-09-2017");
+            listaNoticias.add(noticia);
+        }
     }
 
     @Override
@@ -41,16 +49,8 @@ public class NoticiasInicioController extends AsyncTask<String,Void,Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         Toast.makeText(v.getContext(), "Se cargaron los videos", Toast.LENGTH_SHORT).show();
-
-        for (int i = 0; i < 10; i++)
-        {
-            NoticiasModel noticia = new NoticiasModel();
-            noticia.setTitulo("Este es el titulo de la noticia Nro: " + (i+1));
-            noticia.setFecha("21-09-2017");
-            listaNoticias.add(noticia);
-        }
-
     }
+
     @Override
     protected  void onPostExecute(Void result){
         try {
