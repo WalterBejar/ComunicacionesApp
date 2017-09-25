@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:id="@+id/lyt_carrete"
+    android:background="#dddddd">
+
+    <ImageView
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:src="@drawable/ic_menu_camera"
+        android:id="@+id/img_carrete"/>
+
+    <TextView
+        android:text="Publicación del mes"
+        android:layout_width="78dp"
+        android:layout_height="25dp"
+        android:id="@+id/txt_titulo"
+        android:textColor="@android:color/background_dark"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/img_carrete"
+        android:layout_alignParentStart="@+id/img_carrete" />
+
+    <TextView
+        android:text="27/04/2017"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_fecha"
+        android:textSize="9sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/txt_titulo"
+        android:layout_alignParentStart="@+id/img_carrete" />
+
+</RelativeLayout>
