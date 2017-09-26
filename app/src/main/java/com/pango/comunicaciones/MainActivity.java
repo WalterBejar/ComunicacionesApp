@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         ChangeFragment(NavigationFragment.Inicio);
         uncheckItemsMenu();
         bottomNavigationView.getMenu().findItem(R.id.navigation_inicio).setChecked(true);
+
+        getSupportActionBar().setTitle("Antappacay te informa");
     }
 
 
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_inicio:
+                    setTitle("Antappacay te informa");
                     ChangeFragment(NavigationFragment.Inicio);
                     uncheckItemsMenu();
                     return true;
