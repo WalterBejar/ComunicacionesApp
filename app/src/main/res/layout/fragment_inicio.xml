@@ -66,7 +66,8 @@
                     android:tint = "@color/colorPrimary"
                     android:id="@+id/img_noticia"
                     android:layout_below="@+id/icon_noticias"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="5dp"
+                    android:scaleType="centerCrop"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -75,7 +76,7 @@
                     android:id="@+id/txt_noticia_titulo"
                     android:layout_marginTop="5dp"
                     android:text="Noticias"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:textStyle="normal"
                     android:textColor="@android:color/background_dark" />
 
@@ -85,17 +86,18 @@
                     android:layout_below="@+id/txt_noticia_titulo"
                     android:id="@+id/txt_noticia_fecha"
                     android:text="27/04/2017"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:textStyle="normal" />
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="match_parent"
+                    android:maxLines="7"
                     android:layout_below="@+id/txt_noticia_fecha"
                     android:id="@+id/txt_noticia_contenido"
                     android:text="No es un secreto que toda intervención quirúrgica tiene riesgos, aun así quinceañeras y maduritas confían en el bisturí para arreglar determinadas áreas de sus cuerpos. Será por una simple moda o una alternativa para mejorar sus vidas.
 Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen personal es más importante en el mundo empresarial y los negocios. Incluso vemos abarrotados los gimnasios donde personas de ambos sexos, de distintas clases sociales y formación profesional buscan lograr el cuerpo soñado, aunque no sería nada despreciable la ayuda del bisturí."
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:textStyle="normal" />
 
                 <TextView
@@ -105,7 +107,7 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:layout_below="@+id/txt_noticia_contenido"
                     android:id="@+id/txt_leer_mas"
                     android:layout_alignParentRight="true"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:layout_marginTop="5dp"
                     android:textStyle="normal|bold" />
 
@@ -117,26 +119,19 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:background="@android:color/darker_gray"
                     android:layout_below="@+id/txt_leer_mas"/>
 
-                <HorizontalScrollView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/separator"
                     android:layout_marginTop="8dp">
 
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listViewNoticias"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ListView
-                            android:id="@+id/listViewNoticias"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                        </ListView>
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
+                        android:scrollbars="horizontal">
+                    </android.support.v7.widget.RecyclerView>
+                </RelativeLayout>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -172,10 +167,10 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:layout_toRightOf="@+id/icon_publicaciones"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="Publicaciones"
+                    android:text="Comunicados"
                     android:textSize="12sp"
                     android:textStyle="normal|bold"
-                    android:textColor="@android:color/background_dark" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:text="VER MÁS"
@@ -189,27 +184,20 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:layout_marginTop="5dp"
                     android:textStyle="normal|bold" />
 
-                <HorizontalScrollView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/icon_publicaciones"
                     android:layout_marginTop="10dp">
 
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listViewComunicados"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:scrollbars="horizontal">
+                    </android.support.v7.widget.RecyclerView>
 
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
+                </RelativeLayout>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -245,7 +233,7 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/icon_imagenes"
                     android:text="Imágenes"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp"
                     android:textStyle="normal|bold" />
 
@@ -260,32 +248,20 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:textSize="10sp"
                     android:textStyle="normal|bold" />
 
-                <HorizontalScrollView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/icon_imagenes"
                     android:layout_marginTop="10dp">
 
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listViewImagenes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:scrollbars="horizontal">
+                    </android.support.v7.widget.RecyclerView>
 
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
+                </RelativeLayout>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
@@ -320,7 +296,7 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/icon_videos"
                     android:text="Videos"
-                    android:textColor="@android:color/background_dark"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp"
                     android:textStyle="normal|bold" />
 
@@ -335,32 +311,21 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:textSize="10sp"
                     android:textStyle="normal|bold" />
 
-                <HorizontalScrollView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/icon_videos"
                     android:layout_marginTop="10dp">
 
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/listViewVideos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:scrollbars="horizontal">
+                    </android.support.v7.widget.RecyclerView>
 
-                        <include layout="@layout/item_carrete" />
 
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                        <include layout="@layout/item_carrete" />
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
+                </RelativeLayout>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>

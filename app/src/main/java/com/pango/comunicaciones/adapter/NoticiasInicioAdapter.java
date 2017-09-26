@@ -1,17 +1,18 @@
 package com.pango.comunicaciones.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pango.comunicaciones.R;
-import com.pango.comunicaciones.model.NoticiasModel;
+import com.pango.comunicaciones.controller.NoticiasInicioController;
+import com.pango.comunicaciones.model.NoticiaModel;
+import com.pango.comunicaciones.viewholder.NoticiasInicioViewHolder;
 
 import java.util.List;
 
@@ -19,49 +20,62 @@ import java.util.List;
  * Created by WalterBCH on 25/9/2017.
  */
 
-public class NoticiasInicioAdapter extends ArrayAdapter<NoticiasModel> {
+public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioViewHolder> {
 
-    private List<NoticiasModel> data;
+    private List<NoticiaModel> data;
     private Context context;
 
-    public NoticiasInicioAdapter(Context context, List<NoticiasModel> data) {
-        super(context, R.layout.item_carrete, data);
+    private OnAdapterInteractionListener mListener;
+
+    public NoticiasInicioAdapter(Context context, List<NoticiaModel> data, NoticiasInicioController controller) {
         this.data = data;
         this.context = context;
+        mListener = controller;
     }
 
     @Override
-    public View getView(final int position, final View convertView, final ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
+    public NoticiasInicioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_carrete, parent, false);
 
-        View rowView=inflater.inflate(R.layout.item_carrete, null,true);
+        NoticiasInicioViewHolder holder = new NoticiasInicioViewHolder(view);
+        return holder;
+    }
 
-        TextView nFecha = (TextView)  rowView.findViewById(R.id.txt_fecha);
-        TextView nTitulo = (TextView)  rowView.findViewById(R.id.txt_titulo);
-        ImageView nImagen = (ImageView)  rowView.findViewById(R.id.img_carrete);
+    @Override
+    public void onBindViewHolder(final NoticiasInicioViewHolder holder, final int position) {
+        holder.nFecha.setText(data.get(position).getFecha());
+        holder.nTitulo.setText(data.get(position).getTitulo());
+        if (data.get(position).getIsChecked())
+            holder.relativeLayout.setBackgroundColor(Color.parseColor("#dedede"));
+        else
+            holder.relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
-        final String tempFecha = data.get(position).getFecha();
-        final String tempTitulo = data.get(position).getTitulo();
+        Glide.with(context)
+                .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
+                .into(holder.nImagen);
 
-        nFecha.setText(tempFecha);
-        nTitulo.setText(tempTitulo);
-
-        //int ds = data.get(position).getFiledata().size();
-
-        /*if(ds==0) {
-        }else {*/
-            Glide.with(context)
-                    .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
-                    .into(nImagen);
-        //}
-
-        nImagen.setOnClickListener(new View.OnClickListener() {
+        holder.nImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Se hizo click en la imagen", Toast.LENGTH_SHORT).show();
+                mListener.onNewsSelected(data.get(position));
+                notifyDataSetChanged();
             }
         });
 
-        return rowView;
+        if (position - 1 == getItemCount()) {
+            mListener.onNewsSelected(data.get(0));
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
+    // Interface para comunicarnos al controlador
+    public interface OnAdapterInteractionListener {
+        void onNewsSelected(NoticiaModel noticia);
     }
 }

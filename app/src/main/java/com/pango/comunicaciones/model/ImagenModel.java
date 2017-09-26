@@ -1,35 +1,34 @@
 package com.pango.comunicaciones.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class NoticiasModel {
+/**
+ * Created by Walter Béjar on 26/09/2017.
+ */
+
+public class ImagenModel {
+
     private String cod_reg;
     private String tipo;
     private int icon;
     private String nom_publicador;
     private String fecha;
     private String titulo;
-    private String descripcion;
-    private ArrayList<String> filedata;
+    private List<Img_Gal> filedata;
+    private int count_img;
 
-
-    /*
-    private String correlativo;
-    private String url;
-    private String urlmin;*/
-
-    public NoticiasModel() {
+    public ImagenModel() {
     }
 
-    public NoticiasModel(String cod_reg, String tipo, int icon, String nom_publicador, String fecha, String titulo, String descripcion, ArrayList<String> filedata) {
+    public ImagenModel(String cod_reg, String tipo, int icon, String nom_publicador, String fecha, String titulo, List<Img_Gal> filedata, int count_img) {
         this.cod_reg = cod_reg;
         this.tipo = tipo;
         this.icon = icon;
         this.nom_publicador = nom_publicador;
         this.fecha = fecha;
         this.titulo = titulo;
-        this.descripcion = descripcion;
         this.filedata = filedata;
+        this.count_img = count_img;
     }
 
     public String getCod_reg() {
@@ -80,19 +79,19 @@ public class NoticiasModel {
         this.titulo = titulo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public ArrayList<String> getFiledata() {
+    public List<Img_Gal> getFiledata() {
         return filedata;
     }
 
-    public void setFiledata(ArrayList<String> filedata) {
+    public void setFiledata(List<Img_Gal> filedata) {
         this.filedata = filedata;
+    }
+
+    public int getCount_img() {
+        return count_img;
+    }
+
+    public void setCount_img(int count_img) {
+        this.count_img = count_img;
     }
 }

@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.controller.ComunicadosInicioController;
+import com.pango.comunicaciones.controller.ImagenesInicioController;
 import com.pango.comunicaciones.controller.NoticiasInicioController;
+import com.pango.comunicaciones.controller.VideosInicioController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,10 +74,10 @@ public class FragmentInicio extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-         View view =inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        // ver mas noticias del fragment inicio
+        View view =inflater.inflate(R.layout.fragment_inicio, container, false);
+
+
         textVerMasNoticias = (TextView) view.findViewById(R.id.txt_ver_mas_noticias);
         textVerMasNoticias.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,8 +86,14 @@ public class FragmentInicio extends Fragment {
             }
         });
 
-        final NoticiasInicioController obj = new NoticiasInicioController(view, FragmentInicio.this);
-        obj.execute();
+        final NoticiasInicioController objNoticias = new NoticiasInicioController(view);
+        objNoticias.Execute();
+        final ComunicadosInicioController objComunicados = new ComunicadosInicioController(view);
+        objComunicados.Execute();
+        final ImagenesInicioController objImagenes = new ImagenesInicioController(view);
+        objImagenes.Execute();
+        final VideosInicioController objVideos = new VideosInicioController(view);
+        objVideos.Execute();
 
         return view;
     }
