@@ -1,13 +1,23 @@
 package com.pango.comunicaciones;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -22,15 +32,33 @@ public class ReservaTicketFiltro extends AppCompatActivity {
 
     String[] terminalesCodigos;
     String[] terminalesNombres;
+    String[] tickets = {"asd", "asdasd"};
 
     String origenEscogido;
     String destinoEscogido;
+
+    Boolean escogioOrigen;
+    Boolean escogioDestino;
+    Boolean escogioFecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_ticket_filtro);
         new GetTerminales().execute();
+
+        //tickets = ;
+        ListView listaTickets = (ListView) findViewById(R.id.listaTickets);
+        FiltroAdapter adapter = new FiltroAdapter();
+        listaTickets.setAdapter(adapter);
+    }
+
+    public void showHideGrupo(View view){
+        ConstraintLayout grupo = (ConstraintLayout) findViewById(R.id.grupoConstraint);
+        if (grupo.getVisibility() == View.GONE)
+            grupo.setVisibility(View.VISIBLE);
+        else
+            grupo.setVisibility(View.GONE);
     }
 
     public class GetTerminales extends AsyncTask<String, String, String> {
@@ -67,29 +95,49 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                     spinnerDestino.setAdapter(adapter);
                     spinnerOrigen.setAdapter(adapter);
-                    spinnerDestino.setSelection(0);
-                    spinnerOrigen.setSelection(0);
 
                     spinnerDestino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                            origenEscogido = terminalesCodigos[position];
-                            //Toast.makeText(getApplicationContext(),"Pos: " + position + " - Id: " + id,Toast.LENGTH_SHORT).show();
+                            destinoEscogido = terminalesCodigos[position];
                         }
-
                         @Override
                         public void onNothingSelected(AdapterView<?> parentView) {
-                            // your code here
+                            destinoEscogido = "";
                         }
-
                     });
-
-                    //adapter.notifyDataSetChanged();
-
+                    spinnerOrigen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                            origenEscogido = terminalesCodigos[position];
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parentView) {
+                            origenEscogido = "";
+                        }
+                    });
             }
             /*
+            try {
+                TableLayout tablaViajes = (TableLayout) findViewById(R.id.tablaTickets);
+                LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
+                        (Context.LAYOUT_INFLATER_SERVICE);
+                ConstraintLayout constlayout = (ConstraintLayout) inflater.inflate(R.layout.reserva_tickets_row, null);
+                TableRow filaViajes = (TableRow) constlayout.findViewById(R.id.RTFiltroFila);
+
+                if(filaViajes.getParent()!=null)
+                    ((ViewGroup)filaViajes.getParent()).removeView(filaViajes);
+
+                tablaViajes.addView(filaViajes);
+                //tablaViajes.addView(filaViajes);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            */
+
+            /*
             if (token.equals("")){
-                Toast.makeText(getApplicationContext(),"Hubo un error. Revise los datos ingresados o su configuración.",Toast.LENGTH_SHORT).show();
+
             } else {
                 //Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
                 //startActivity(toReservaTicketFiltro);
@@ -129,4 +177,31 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         }
     }
 
+    public class FiltroAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return tickets.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = getLayoutInflater().inflate(R.layout.reserva_tickets_row, null);
+
+            TextView busNombre = (TextView) convertView.findViewById(R.id.lblBusNombre);
+            busNombre.setText(tickets[position]);
+
+            return convertView;
+        }
+    }
 }
