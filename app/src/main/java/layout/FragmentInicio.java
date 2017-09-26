@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.controller.NoticiasInicioController;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,6 +82,9 @@ public class FragmentInicio extends Fragment {
                 Toast.makeText(v.getContext(), "Se quiere ver mas noticias", Toast.LENGTH_SHORT).show();
             }
         });
+
+        final NoticiasInicioController obj = new NoticiasInicioController(view, FragmentInicio.this);
+        obj.execute();
 
         return view;
     }

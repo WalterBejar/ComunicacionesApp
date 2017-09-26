@@ -128,12 +128,11 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
-                        <include layout="@layout/item_carrete" />
+                        <ListView
+                            android:id="@+id/listViewNoticias"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        </ListView>
 
                     </LinearLayout>
 
