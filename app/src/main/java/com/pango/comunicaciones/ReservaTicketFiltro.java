@@ -1,5 +1,6 @@
 package com.pango.comunicaciones;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +14,9 @@ import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -21,36 +25,75 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.pango.comunicaciones.model.GetTicketModel;
+import com.pango.comunicaciones.model.TicketModel;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class ReservaTicketFiltro extends AppCompatActivity {
 
     String[] terminalesCodigos;
     String[] terminalesNombres;
-    String[] tickets = {"asd", "asdasd"};
+    TicketModel[] tickets;
+
+    Calendar myCalendar;
+    DatePickerDialog.OnDateSetListener date;
 
     String origenEscogido;
     String destinoEscogido;
+    String fechaEscogida;
+    int cantidadTickets;
 
     Boolean escogioOrigen;
     Boolean escogioDestino;
     Boolean escogioFecha;
 
+    FiltroAdapter filtroAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_ticket_filtro);
+
+        myCalendar = Calendar.getInstance();
+        date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                Button botonEscogerFecha = (Button) findViewById(R.id.botonEscogerFecha);
+                botonEscogerFecha.setText(myCalendar.getTime().toString());
+            }
+
+        };
+
         new GetTerminales().execute();
 
-        //tickets = ;
         ListView listaTickets = (ListView) findViewById(R.id.listaTickets);
-        FiltroAdapter adapter = new FiltroAdapter();
-        listaTickets.setAdapter(adapter);
+        filtroAdapter = new FiltroAdapter();
+        listaTickets.setAdapter(filtroAdapter);
+
+        listaTickets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent toReservaTicketDetalle = new Intent(getApplicationContext(), ReservaTicketDetalle.class);
+                toReservaTicketDetalle.putExtra("CodigoTicket", tickets[position].Codigo);
+                startActivity(toReservaTicketDetalle);
+            }
+        });
+
+        new BuscarTickets().execute();
     }
 
     public void showHideGrupo(View view){
@@ -59,6 +102,88 @@ public class ReservaTicketFiltro extends AppCompatActivity {
             grupo.setVisibility(View.VISIBLE);
         else
             grupo.setVisibility(View.GONE);
+    }
+
+    public void escogerFecha(View view){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+        //datePickerDialog.getDatePicker().setMinDate((new Date()).getTime());
+        //datePickerDialog.getDatePicker().setMaxDate((new Date()).getTime() + 1000000);
+        try {
+            Calendar tempCalendar = Calendar.getInstance();
+            tempCalendar.set(Calendar.HOUR, 0);
+            tempCalendar.set(Calendar.MINUTE, 0);
+            tempCalendar.set(Calendar.SECOND, 0);
+            tempCalendar.set(Calendar.MILLISECOND, 0);
+
+            datePickerDialog.getDatePicker().setMinDate(tempCalendar.getTimeInMillis());
+            tempCalendar.set(Calendar.MONTH, (new Date()).getMonth() + 1);
+            datePickerDialog.getDatePicker().setMaxDate(tempCalendar.getTimeInMillis());
+            datePickerDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public class BuscarTickets extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //if (!escogioDestino)
+                destinoEscogido = "-";
+            //if (!escogioOrigen)
+                origenEscogido = "-";
+            //if (!escogioFecha)
+                fechaEscogida = "-";
+            cantidadTickets = 10;
+        }
+
+        @Override
+        protected void onPostExecute(String str) {
+            super.onPostExecute(str);
+            switch (str) {
+                case "404":
+                    break;
+                case "500":
+                    break;
+                default:
+                    Gson gson = new Gson();
+                    GetTicketModel getTicketModel = gson.fromJson(str, GetTicketModel.class);
+                    tickets = getTicketModel.Data;
+                    filtroAdapter.notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(Utils.getUrlForBuscarTickets(origenEscogido, destinoEscogido, fechaEscogida, cantidadTickets));
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestProperty("Authorization", "Bearer " + Utils.token);
+                con.setRequestMethod("GET");
+                con.connect();
+
+                switch (con.getResponseCode()) {
+                    case 200:
+                        InputStream in = con.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder result = new StringBuilder();
+                        String line;
+                        while((line = reader.readLine()) != null) {
+                            result.append(line);
+                        }
+                        return result.toString();
+                    default:
+                        return "" + con.getResponseCode();
+                }
+                //Toast.makeText(getApplicationContext(),con.getResponseCode(),Toast.LENGTH_SHORT).show();
+                //return "" + con.getResponseCode();
+                //return token;
+            } catch (Exception e) {
+                System.out.println(e.getStackTrace());
+            }
+            return null;
+        }
     }
 
     public class GetTerminales extends AsyncTask<String, String, String> {
@@ -103,7 +228,7 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parentView) {
-                            destinoEscogido = "";
+                            destinoEscogido = "ESCOJA UN DESTINO";
                         }
                     });
                     spinnerOrigen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -113,36 +238,11 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parentView) {
-                            origenEscogido = "";
+                            origenEscogido = "ESCOJA UN ORIGEN";
                         }
                     });
             }
-            /*
-            try {
-                TableLayout tablaViajes = (TableLayout) findViewById(R.id.tablaTickets);
-                LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
-                        (Context.LAYOUT_INFLATER_SERVICE);
-                ConstraintLayout constlayout = (ConstraintLayout) inflater.inflate(R.layout.reserva_tickets_row, null);
-                TableRow filaViajes = (TableRow) constlayout.findViewById(R.id.RTFiltroFila);
-
-                if(filaViajes.getParent()!=null)
-                    ((ViewGroup)filaViajes.getParent()).removeView(filaViajes);
-
-                tablaViajes.addView(filaViajes);
-                //tablaViajes.addView(filaViajes);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-            */
-
-            /*
-            if (token.equals("")){
-
-            } else {
-                //Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
-                //startActivity(toReservaTicketFiltro);
-                Toast.makeText(getApplicationContext(),token,Toast.LENGTH_SHORT).show();
-            }*/
+            //new BuscarTickets().execute();
         }
 
         @Override
@@ -181,7 +281,9 @@ public class ReservaTicketFiltro extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return tickets.length;
+            if (tickets != null)
+                return tickets.length;
+            return 0;
         }
 
         @Override
@@ -196,10 +298,27 @@ public class ReservaTicketFiltro extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            if (tickets == null)
+                return  null;
             convertView = getLayoutInflater().inflate(R.layout.reserva_tickets_row, null);
 
             TextView busNombre = (TextView) convertView.findViewById(R.id.lblBusNombre);
-            busNombre.setText(tickets[position]);
+            busNombre.setText(tickets[position].Bus.Nombre);
+
+            TextView busHora = (TextView) convertView.findViewById(R.id.lblBusHora);
+            busHora.setText(tickets[position].Fecha.substring(11,16));
+
+            TextView busALibres = (TextView) convertView.findViewById(R.id.lblBusAsientosLibres);
+            busALibres.setText("" + tickets[position].Libres);
+
+            TextView busAOcupados = (TextView) convertView.findViewById(R.id.lblBusAsientosOcupados);
+            busAOcupados.setText("" + tickets[position].Reservas);
+
+            ImageView checkReserva = (ImageView) convertView.findViewById(R.id.imgBusReservado);
+            if (!tickets[position].Separado)
+                checkReserva.setVisibility(View.INVISIBLE);
+            else
+                checkReserva.setVisibility(View.VISIBLE);
 
             return convertView;
         }

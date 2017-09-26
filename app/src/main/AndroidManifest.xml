@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReservaTicketFiltro"></activity>
+        <activity android:name=".ReservaTicketFiltro" />
+        <activity android:name=".ReservaTicketDetalle"></activity>
     </application>
 
 </manifest>
