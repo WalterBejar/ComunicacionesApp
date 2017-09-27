@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,15 +47,17 @@ public class ReservaTicketFiltro extends AppCompatActivity {
 
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener date;
+    Button botonBuscarTickets, botonEscogerFecha;
+    Spinner spinnerOrigen, spinnerDestino;
 
     String origenEscogido;
     String destinoEscogido;
     String fechaEscogida;
     int cantidadTickets;
 
-    Boolean escogioOrigen;
-    Boolean escogioDestino;
-    Boolean escogioFecha;
+    boolean escogioOrigen;
+    boolean escogioDestino;
+    boolean escogioFecha;
 
     FiltroAdapter filtroAdapter;
 
@@ -63,17 +66,29 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_ticket_filtro);
 
+        botonBuscarTickets = (Button) findViewById(R.id.botonBuscarTickets);
+        botonEscogerFecha = (Button) findViewById(R.id.botonEscogerFecha);
+        spinnerOrigen = (Spinner) findViewById(R.id.spinnerOrigen);
+        spinnerDestino = (Spinner) findViewById(R.id.spinnerDestino);
+
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                Button botonEscogerFecha = (Button) findViewById(R.id.botonEscogerFecha);
-                botonEscogerFecha.setText(myCalendar.getTime().toString());
+
+                Date actual = myCalendar.getTime();
+                SimpleDateFormat dt = new SimpleDateFormat("dd 'de' MMMM");
+                botonEscogerFecha.setText(dt.format(actual));
+
+                escogioFecha = true;
+                dt = new SimpleDateFormat("dd-MM-yyyy");
+                fechaEscogida = dt.format(actual);
+                if (escogioOrigen && escogioDestino && escogioFecha)
+                    botonBuscarTickets.setEnabled(true);
             }
 
         };
@@ -96,6 +111,10 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         new BuscarTickets().execute();
     }
 
+    public void clickEnBuscarViajes(View view){
+        new BuscarTickets().execute();
+    }
+
     public void showHideGrupo(View view){
         ConstraintLayout grupo = (ConstraintLayout) findViewById(R.id.grupoConstraint);
         if (grupo.getVisibility() == View.GONE)
@@ -106,34 +125,27 @@ public class ReservaTicketFiltro extends AppCompatActivity {
 
     public void escogerFecha(View view){
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-        //datePickerDialog.getDatePicker().setMinDate((new Date()).getTime());
-        //datePickerDialog.getDatePicker().setMaxDate((new Date()).getTime() + 1000000);
-        try {
-            Calendar tempCalendar = Calendar.getInstance();
-            tempCalendar.set(Calendar.HOUR, 0);
-            tempCalendar.set(Calendar.MINUTE, 0);
-            tempCalendar.set(Calendar.SECOND, 0);
-            tempCalendar.set(Calendar.MILLISECOND, 0);
+        Calendar tempCalendar = Calendar.getInstance();
+        tempCalendar.set(Calendar.HOUR, 0);
+        tempCalendar.set(Calendar.MINUTE, 0);
+        tempCalendar.set(Calendar.SECOND, 0);
+        tempCalendar.set(Calendar.MILLISECOND, 0);
 
-            datePickerDialog.getDatePicker().setMinDate(tempCalendar.getTimeInMillis());
-            tempCalendar.set(Calendar.MONTH, (new Date()).getMonth() + 1);
-            datePickerDialog.getDatePicker().setMaxDate(tempCalendar.getTimeInMillis());
-            datePickerDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        datePickerDialog.getDatePicker().setMinDate(tempCalendar.getTimeInMillis());
+        tempCalendar.set(Calendar.MONTH, (new Date()).getMonth() + 1);
+        datePickerDialog.getDatePicker().setMaxDate(tempCalendar.getTimeInMillis());
+        datePickerDialog.show();
     }
 
     public class BuscarTickets extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //if (!escogioDestino)
+            if (!escogioDestino)
                 destinoEscogido = "-";
-            //if (!escogioOrigen)
+            if (!escogioOrigen)
                 origenEscogido = "-";
-            //if (!escogioFecha)
+            if (!escogioFecha)
                 fechaEscogida = "-";
             cantidadTickets = 10;
         }
@@ -212,9 +224,6 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                         terminalesNombres[i] = arrayTerminales[i].Descripcion;
                     }
 
-                    final Spinner spinnerOrigen = (Spinner) findViewById(R.id.spinnerOrigen);
-                    Spinner spinnerDestino = (Spinner) findViewById(R.id.spinnerDestino);
-
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(com.pango.comunicaciones.ReservaTicketFiltro.this,
                             android.R.layout.simple_spinner_item, terminalesNombres);
                     adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -224,7 +233,10 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                     spinnerDestino.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                            destinoEscogido = terminalesCodigos[position];
+                            destinoEscogido = terminalesNombres[position];
+                            escogioDestino = true;
+                            if (escogioOrigen && escogioDestino && escogioFecha)
+                                botonBuscarTickets.setEnabled(true);
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parentView) {
@@ -234,7 +246,10 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                     spinnerOrigen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                            origenEscogido = terminalesCodigos[position];
+                            origenEscogido = terminalesNombres[position];
+                            escogioOrigen = true;
+                            if (escogioOrigen && escogioDestino && escogioFecha)
+                                botonBuscarTickets.setEnabled(true);
                         }
                         @Override
                         public void onNothingSelected(AdapterView<?> parentView) {

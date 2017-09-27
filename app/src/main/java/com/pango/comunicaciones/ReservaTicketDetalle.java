@@ -34,10 +34,22 @@ public class ReservaTicketDetalle extends AppCompatActivity {
 
     DetalleAdapter detalleAdapter;
 
+    Button botonGestionarPasajeros, botonGestionarReserva;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserva_ticket_detalle);
+
+        botonGestionarPasajeros = (Button) findViewById(R.id.botonGestionarPasajeros);
+        botonGestionarReserva = (Button) findViewById(R.id.botonGestionarReserva);
+
+        // Establecer visibilidad de botonGestionarPasajeros
+        if (Utils.esAdmin)
+            botonGestionarPasajeros.setVisibility(View.VISIBLE);
+        else
+            botonGestionarPasajeros.setVisibility(View.GONE);
 
         // Recibir codigo ticket
         Bundle extras = getIntent().getExtras();
@@ -51,6 +63,15 @@ public class ReservaTicketDetalle extends AppCompatActivity {
         //LLamar a GetBusDetalles
         new GetBusDetalles().execute();
 
+    }
+
+    public void gestionarReserva(View view){
+        if (ticket != null && ticket.Separado)
+            botonGestionarReserva.setText("Reservar ticket");
+        else
+            botonGestionarReserva.setText("Eliminar Reserva");
+        if (ticket != null)
+            ticket.Separado = !ticket.Separado;
     }
 
     public void toReservaTicketListaPasajeros(View view){
@@ -93,6 +114,11 @@ public class ReservaTicketDetalle extends AppCompatActivity {
                 default:
                     Gson gson = new Gson();
                     ticket = gson.fromJson(str, TicketModel.class);
+
+                    if (ticket.Separado)
+                        botonGestionarReserva.setText("Eliminar reserva");
+                    else
+                        botonGestionarReserva.setText("Reservar ticket");
 
                     // Actualizar lista
                     detalleAdapter.notifyDataSetChanged();

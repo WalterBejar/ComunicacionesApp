@@ -27,15 +27,6 @@
         <activity android:name=".ReservaTicketDetalle" />
         <activity android:name=".ReservaTicketListaPasajeros" />
         <activity android:name=".ReservaTicketBuscarPasajeros"></activity>
-        <activity android:name=".ReservaTicketDetalle"></activity>
-
-
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
         <activity
             android:name=".ActImagDet"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
@@ -54,7 +45,6 @@
         <activity android:name=".ActImgNot"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
-        <activity android:name=".ReservaTicketFiltro" />
         <activity
             android:name=".ActNotDes"
             android:screenOrientation="portrait"

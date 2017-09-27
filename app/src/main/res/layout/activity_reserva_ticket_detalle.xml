@@ -48,7 +48,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +59,7 @@
         <Button
             android:id="@+id/botonGestionarPasajeros"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:text="GESTIONAR PASAJEROS"
@@ -73,7 +73,7 @@
         <Button
             android:id="@+id/botonGestionarReserva"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:text="AGREGAR/QUITAR"
