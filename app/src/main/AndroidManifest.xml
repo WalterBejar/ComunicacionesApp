@@ -14,10 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReservaTicketFiltro" />
+        <activity android:name=".ReservaTicketDetalle" />
+        <activity android:name=".ReservaTicketListaPasajeros" />
+        <activity android:name=".ReservaTicketBuscarPasajeros"></activity>
         <activity android:name=".ReservaTicketDetalle"></activity>
 
 

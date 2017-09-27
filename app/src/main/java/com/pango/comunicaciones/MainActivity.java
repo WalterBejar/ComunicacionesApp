@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         GlobalVariables.Urlbase=Recuperar_data();
         Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
-        //startActivity(toReservaTicketFiltro);
-
+        startActivity(toReservaTicketFiltro);
+        /*
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.getMenu().findItem(R.id.navigation_inicio).setChecked(true);
 
         getSupportActionBar().setTitle("Antappacay te informa");
+        */
     }
 
 
