@@ -2,24 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.FragmentNoticias">
+    tools:context="layout.FragmentImagenes">
 
     <!-- TODO: Update blank fragment layout -->
-
-
     <ListView
-        android:id="@+id/l_frag_not"
+        android:id="@+id/list_imag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="8dp"
-
         android:elevation="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/colorplaystore"
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
+        android:focusable="true"
 
         />
-
 
 </FrameLayout>

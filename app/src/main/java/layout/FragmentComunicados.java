@@ -1,11 +1,12 @@
 package layout;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,27 +14,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.pango.comunicaciones.ActNotDetalle;
+import com.pango.comunicaciones.ActComDetalle;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
-import com.pango.comunicaciones.controller.noticiacontroller;
-import com.pango.comunicaciones.model.Noticias;
+import com.pango.comunicaciones.controller.ComController;
+import com.pango.comunicaciones.model.Comunicado;
 
-import static com.pango.comunicaciones.GlobalVariables.noticias2;
+import java.util.List;
+
+import static com.pango.comunicaciones.GlobalVariables.comlist;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentNoticias.OnFragmentInteractionListener} interface
+ * {@link FragmentComunicados.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentNoticias#newInstance} factory method to
+ * Use the {@link FragmentComunicados#newInstance} factory method to
  * create an instance of this fragment.
  */
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragmentNoticias extends Fragment {
-
+public class FragmentComunicados extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,22 +44,21 @@ public class FragmentNoticias extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
-
-    public FragmentNoticias() {
+    public FragmentComunicados() {
         // Required empty public constructor
     }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentNoticias.
+     * @return A new instance of fragment FragmentComunicados.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentNoticias newInstance(String param1, String param2) {
-        FragmentNoticias fragment = new FragmentNoticias();
+    public static FragmentComunicados newInstance(String param1, String param2) {
+        FragmentComunicados fragment = new FragmentComunicados();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -76,60 +74,39 @@ public class FragmentNoticias extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-///////////////////
-int a;
-    Context context;
-
+/////////////////////////////////////////////////////////////
+    int a;
     int pag=1;
     int celda=20;
-    int aum=3;
     private int pageCount = 0;
-    private boolean isThereMore;
-    //List<Noticias> lnot2;
-    Noticias noticia2;
-    ListView recList;
-    int in=3;
 
+    private boolean isThereMore;
+    List<Comunicado> lcom;
+    Comunicado comunicado;
+    ListView recListCom;
+    int in=3;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        context = container.getContext();
+        View rootView = inflater.inflate(R.layout.fragment_comunicados, container, false);
+        recListCom = (ListView) rootView.findViewById(R.id.l_frag_com);
 
-        final View rootView = inflater.inflate(R.layout.fragment_noticias, container, false);
-        recList = (ListView) rootView.findViewById(R.id.l_frag_not);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        final noticiacontroller obj = new noticiacontroller(rootView,"url","get", FragmentNoticias.this);
+        final ComController obj = new ComController(rootView,"url","get", FragmentComunicados.this);
         obj.execute(String.valueOf(1),String.valueOf(33));
 
-
-        //return inflater.inflate(R.layout.fragment_noticias, container, false);
-
-        recList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recListCom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Click", "click en el elemento " + position + " de mi ListView");
-                GlobalVariables.not2pos= noticias2.get(position);//captura los datos en la posiscion que se hace clic y almacena en not2pos
+                GlobalVariables.com_pos= comlist.get(position);//captura los datos en la posiscion que se hace clic y almacena en not2pos
 
                 GlobalVariables.doclic=true;
-                // GlobalVariables.pos_item_img=position;
 
-
-               /* android.app.Fragment fragment = null;
-                fragment = new Frag_noticia_det();
-                if(null!=fragment) {
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.container, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }*/
+                GlobalVariables.pos_item_com=position;
                 //se conecta a un activity//
-                Intent intent = new Intent(getActivity(), ActNotDetalle.class);
+                Intent intent = new Intent(getActivity(), ActComDetalle.class);
                 startActivity(intent);
 
 
@@ -137,13 +114,9 @@ int a;
             }
         });
 
-
         return rootView;
-
     }
-
-/////////////////////////////////////
-
+//////////////////////////////////////////////
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -182,9 +155,4 @@ int a;
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
-
-
 }
