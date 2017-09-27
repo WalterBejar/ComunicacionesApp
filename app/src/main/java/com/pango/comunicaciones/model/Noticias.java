@@ -2,7 +2,7 @@ package com.pango.comunicaciones.model;
 
 import java.util.ArrayList;
 
-public class Noticias2 {
+public class Noticias {
     private String cod_reg;
     private String tipo;
     private int icon;
@@ -18,10 +18,10 @@ public class Noticias2 {
     private String url;
     private String urlmin;*/
 
-    public Noticias2() {
+    public Noticias() {
     }
 
-    public Noticias2(String cod_reg, String tipo, int icon, String nom_publicador, String fecha, String titulo, String descripcion, ArrayList<String> filedata) {
+    public Noticias(String cod_reg, String tipo, int icon, String nom_publicador, String fecha, String titulo, String descripcion, ArrayList<String> filedata) {
         this.cod_reg = cod_reg;
         this.tipo = tipo;
         this.icon = icon;

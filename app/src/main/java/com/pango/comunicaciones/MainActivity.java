@@ -1,6 +1,8 @@
 package com.pango.comunicaciones;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +10,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.view.SubMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,14 +23,28 @@ import android.view.MenuItem;
 
 import java.lang.reflect.Field;
 
+import layout.FragmentComunicados;
+import layout.FragmentConfiguracion;
+import layout.FragmentImagenes;
 import layout.FragmentInicio;
 import layout.FragmentNoticias;
+import layout.FragmentNotificacion;
+import layout.FragmentTickets;
+import layout.FragmentVideos;
 
 public class MainActivity extends AppCompatActivity
         implements
         NavigationView.OnNavigationItemSelectedListener,
         FragmentInicio.OnFragmentInteractionListener,
-        FragmentNoticias.OnFragmentInteractionListener{
+        FragmentNoticias.OnFragmentInteractionListener,
+        FragmentComunicados.OnFragmentInteractionListener,
+        FragmentImagenes.OnFragmentInteractionListener,
+        FragmentVideos.OnFragmentInteractionListener,
+        FragmentTickets.OnFragmentInteractionListener,
+        FragmentNotificacion.OnFragmentInteractionListener,
+        FragmentConfiguracion.OnFragmentInteractionListener
+
+{
 
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
@@ -39,9 +56,13 @@ public class MainActivity extends AppCompatActivity
     private enum NavigationFragment{
         Inicio,
         Noticias,
-        Publicaciones,
+        Comunicados,
         Imagenes,
-        Videos
+        Videos,
+        Tickets,
+        Notificacion,
+        Configuracion
+
     }
 
     @Override
@@ -50,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        GlobalVariables.Urlbase=Recuperar_data();
         Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
         //startActivity(toReservaTicketFiltro);
 
@@ -107,7 +128,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
+//menu lateral
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -116,24 +137,44 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_noticias) {
             ClickMenuNoticias();
+            uncheckItemsMenu();
+            bottomNavigationView.getMenu().findItem(R.id.navigation_noticias).setChecked(true);
         } else if (id == R.id.nav_publicaciones) {
+            ClickMenuComunicados();
             uncheckItemsMenu();
             bottomNavigationView.getMenu().findItem(R.id.navigation_publicaciones).setChecked(true);
         } else if (id == R.id.nav_imagenes) {
+            ClickMenuImagenes();
             uncheckItemsMenu();
             bottomNavigationView.getMenu().findItem(R.id.navigation_imagenes).setChecked(true);
         } else if (id == R.id.nav_videos) {
+            ClickMenuVideos();
             uncheckItemsMenu();
-            bottomNavigationView.getMenu().findItem(R.id.navigation_videos).setChecked(true);
+            bottomNavigationView.getMenu().findItem(R.id.navigation_videos).setChecked(true);//menu inferior
         } else if (id == R.id.nav_tickets) {
+            ClickMenuTickets();
+            uncheckItemsMenu();
+
+        }else if (id == R.id.nav_notificaciones){
+            ClickMenuNotificacion();
+            uncheckItemsMenu();
+        }else if (id == R.id.nav_configuracion){
+            ClickMenuConfiguracion();
             uncheckItemsMenu();
         }
+
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+
+
+
+    //menu inferior
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -146,19 +187,22 @@ public class MainActivity extends AppCompatActivity
                     uncheckItemsMenu();
                     return true;
                 case R.id.navigation_imagenes:
-                    uncheckItemsMenu();
-                    navigationView.getMenu().findItem(R.id.nav_imagenes).setChecked(true);
+                    //uncheckItemsMenu();
+                    //navigationView.getMenu().findItem(R.id.nav_imagenes).setChecked(true);
+                    ClickMenuImagenes();
                     return true;
                 case R.id.navigation_videos:
-                    uncheckItemsMenu();
-                    navigationView.getMenu().findItem(R.id.nav_videos).setChecked(true);
+                    ClickMenuVideos();
+                    //uncheckItemsMenu();
+                    //navigationView.getMenu().findItem(R.id.nav_videos).setChecked(true);
                     return true;
                 case R.id.navigation_noticias:
                     ClickMenuNoticias();
                     return true;
                 case R.id.navigation_publicaciones:
-                    uncheckItemsMenu();
-                    navigationView.getMenu().findItem(R.id.nav_publicaciones).setChecked(true);
+                    //uncheckItemsMenu();
+                    //navigationView.getMenu().findItem(R.id.nav_publicaciones).setChecked(true);
+                    ClickMenuComunicados();
                     return true;
             }
             return false;
@@ -168,9 +212,58 @@ public class MainActivity extends AppCompatActivity
 
     public void ClickMenuNoticias() {
         uncheckItemsMenu();
+        setTitle("Noticias");
         bottomNavigationView.getMenu().findItem(R.id.navigation_noticias).setChecked(true);
         navigationView.getMenu().findItem(R.id.nav_noticias).setChecked(true);
         ChangeFragment(NavigationFragment.Noticias);
+    }
+
+    public void ClickMenuComunicados() {
+
+        uncheckItemsMenu();
+        setTitle("Comunicados");
+
+        bottomNavigationView.getMenu().findItem(R.id.navigation_publicaciones).setChecked(true);
+        navigationView.getMenu().findItem(R.id.nav_publicaciones).setChecked(true);
+        ChangeFragment(NavigationFragment.Comunicados);
+    }
+    public void ClickMenuImagenes() {
+        uncheckItemsMenu();
+        setTitle("Imágenes");
+
+        bottomNavigationView.getMenu().findItem(R.id.navigation_imagenes).setChecked(true);
+        navigationView.getMenu().findItem(R.id.nav_imagenes).setChecked(true);
+        ChangeFragment(NavigationFragment.Imagenes);
+
+    }
+    public void ClickMenuVideos() {
+        uncheckItemsMenu();
+        setTitle("Videos");
+        bottomNavigationView.getMenu().findItem(R.id.navigation_videos).setChecked(true);
+        navigationView.getMenu().findItem(R.id.nav_videos).setChecked(true);
+        ChangeFragment(NavigationFragment.Videos);
+    }
+//opciones menu lateral
+    private void ClickMenuTickets() {
+        uncheckItemsMenu();
+        setTitle("Reserva de Tickets");
+        navigationView.getMenu().findItem(R.id.nav_tickets).setChecked(true);
+        ChangeFragment(NavigationFragment.Tickets);
+    }
+
+    private void ClickMenuNotificacion() {
+        uncheckItemsMenu();
+        setTitle("Notificaciones");
+        navigationView.getMenu().findItem(R.id.nav_notificaciones).setChecked(true);
+        ChangeFragment(NavigationFragment.Notificacion);
+
+    }
+
+    private void ClickMenuConfiguracion() {
+        uncheckItemsMenu();
+        setTitle("Configuración");
+        navigationView.getMenu().findItem(R.id.nav_configuracion).setChecked(true);
+        ChangeFragment(NavigationFragment.Configuracion);
     }
 
     public static void disableShiftMode(BottomNavigationView view) {
@@ -221,6 +314,12 @@ public class MainActivity extends AppCompatActivity
         switch (value) {
             case Inicio:    fragment = new FragmentInicio(); break;
             case Noticias:    fragment = new FragmentNoticias(); break;
+            case Comunicados: fragment = new FragmentComunicados(); break;
+            case Imagenes: fragment = new FragmentImagenes(); break;
+            case Videos: fragment = new FragmentVideos(); break;
+            case Tickets: fragment = new FragmentTickets(); break;
+            case Notificacion: fragment = new FragmentNotificacion(); break;
+            case Configuracion: fragment = new FragmentConfiguracion(); break;
         }
         if(fragment!=null)
             getSupportFragmentManager()
@@ -228,4 +327,15 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.content, fragment)
                     .commit();
     }
+
+
+
+    public String Recuperar_data() {
+
+        SharedPreferences settings =  getSharedPreferences("datos", Context.MODE_PRIVATE);
+        String url_servidor = settings.getString("url","valorpordefecto");
+        //Toast.makeText(this, url_servidor, Toast.LENGTH_SHORT).show();
+        return url_servidor;
+    }
+
 }
