@@ -35,7 +35,6 @@ public class AuthController extends AsyncTask<String,Void,Void> {
     FragmentTickets Frag;
     String Resultado="";
     String CodRegistro;
-    ArrayList<String> list_user;
     ProgressDialog progressDialog;
     Noticias noticia2;
    // List<User_Auth> user_auth=new ArrayList<User_Auth>();
@@ -43,12 +42,11 @@ public class AuthController extends AsyncTask<String,Void,Void> {
   //  int a;
    // int celda = 3;
 
-    public AuthController(View v, String url, String opcion, FragmentTickets Frag, ArrayList<String> list_user){
+    public AuthController(View v, String url, String opcion, FragmentTickets Frag){
         this.v=v;
         this.url=url;
         this.opcion=opcion;
         this.Frag=Frag;
-        this.list_user=list_user;
         //recList=(ListView) v.findViewById(R.id.frag_not);
         //recList.setOnScrollListener(this);
     }
@@ -56,56 +54,15 @@ public class AuthController extends AsyncTask<String,Void,Void> {
     protected Void doInBackground(String... params) {
         try {
             HttpResponse response;
-            //String a=params[0];
-           // String b=params[1];
+            String a=params[0];
+            String b=params[1];
+            String c=params[2];
 
 
 
 
 
-            if(opcion=="post"){
-                InputStream inputStream = null;
-                String result = "";
-                try{
-                    HttpClient httpclient = new DefaultHttpClient ();
-                    HttpPost httpPost = new HttpPost (GlobalVariables.Urlbase+"usuario/getlogin");
 
-                    String json = "";
-                   // for(int i=0;i<list_user.size();i++) {
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.accumulate("CodUsuario", list_user.get(0));
-                        jsonObject.accumulate("Password", list_user.get(1));
-                        jsonObject.accumulate("Dominio", list_user.get(2));
-
-                        json += jsonObject.toString();
-                        /*if(i!=(lista_Parametros.size()-1)){
-                            json+=",";
-                        }*/
-                    //}
-
-                    //json+="]";
-
-                    StringEntity se = new StringEntity(json);
-                    httpPost.setEntity(se);
-                    httpPost.setHeader("Accept", "application/json");
-                    httpPost.setHeader("Content-type", "application/json");
-                    HttpResponse httpResponse = httpclient.execute(httpPost);
-
-                    inputStream = httpResponse.getEntity().getContent();
-                    if(inputStream != null)
-                        result = convertInputStreamToString(inputStream);
-                    else
-                        result = "Did not work!";
-                   String responsepost= GlobalVariables.reemplazarUnicode(result);
-                    Resultado=responsepost;
-                    JSONObject respJSON = new JSONObject(Resultado);
-                    CodRegistro = respJSON.getString("CodPersona");
-
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
         }
         catch (Throwable e) {
@@ -133,7 +90,7 @@ public class AuthController extends AsyncTask<String,Void,Void> {
     @Override
     protected  void onPostExecute(Void result){
         try {
-            if (opcion == "post") {
+            if (opcion == "get") {
 
                 if(CodRegistro.equals("null")){
 

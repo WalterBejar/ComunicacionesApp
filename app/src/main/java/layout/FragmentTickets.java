@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.controller.AuthController;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class FragmentTickets extends Fragment {
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ArrayList<String> user_auth=new ArrayList<String>();
+   // ArrayList<String> user_auth=new ArrayList<String>();
     Button btn_ingresar;
     EditText tx_user;
     EditText tx_pass;
@@ -76,7 +77,7 @@ public class FragmentTickets extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =inflater.inflate(R.layout.fragment_tickets, container, false);
+        final View rootView =inflater.inflate(R.layout.fragment_tickets, container, false);
 
 
         tx_user=(EditText) rootView.findViewById(R.id.usuario);
@@ -90,15 +91,15 @@ public class FragmentTickets extends Fragment {
                 String a=tx_user.getText().toString();
                 String b=tx_pass.getText().toString();
                 String c=Recuperar_data();
-                user_auth.clear();
+               /* user_auth.clear();
                 user_auth.add(a);
                 user_auth.add(b);
-                user_auth.add(c);
+                user_auth.add(c);*/
 
 
                 Toast.makeText(v.getContext(),"logueo",Toast.LENGTH_SHORT).show();
-                // final AuthController obj = new AuthController(rootView,"url","post", Frag_Ticket.this,user_auth);
-                //obj.execute();
+                 final AuthController obj = new AuthController(rootView,"url","post", FragmentTickets.this);
+                obj.execute(a,b,c);
 
 //probar
         //        Intent intent = new Intent(v.getContext(), ActFiltro.class);

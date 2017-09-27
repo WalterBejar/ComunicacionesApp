@@ -24,6 +24,10 @@ public class GlobalVariables {
     public static String Urlbase2 = "entrada/getpaginated/";
     public static String url_token="membership/authenticate?username=antapaccay&password=Tintaya123.&domain=anyaccess";
 
+
+
+
+
     //var global de noticias
     public static List<Noticias> noticias2 = new ArrayList<>();
     public static int contador;
