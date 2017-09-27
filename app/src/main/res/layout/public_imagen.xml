@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_imag"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    card_view:cardCornerRadius="4dp"
+    android:layout_margin="5dp"
+    android:descendantFocusability="blocksDescendants"
+    card_view:cardElevation="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+       >
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/icon_imag" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titulo_imagen"
+            android:layout_alignLeft="@+id/titulo_imagen"
+            android:layout_alignStart="@+id/titulo_imagen"
+            android:id="@+id/txfechaimag"
+            android:textSize="12sp" />
+
+
+        <!-- imagenes en carrete  -->
+
+
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/background_dark"
+            android:id="@+id/titulo_imagen"
+            android:textSize="16sp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@+id/icon_imag"
+            android:layout_alignTop="@+id/icon_imag"
+            android:layout_toRightOf="@+id/icon_imag"
+            android:layout_toEndOf="@+id/icon_imag"
+            android:layout_marginLeft="2dp"
+            android:textStyle="normal|bold" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+
+            android:layout_below="@+id/txfechaimag"
+            android:layout_alignLeft="@+id/titulo_noticia"
+            android:layout_alignStart="@+id/titulo_noticia"
+
+            android:layout_margin="5dp"
+
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linlayh"
+
+                >
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_menu_camera"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:id="@+id/imag1"
+
+                    />
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_menu_camera"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:id="@+id/imag2"
+                    />
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_menu_camera"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:id="@+id/imag3"
+                    />
+
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_menu_camera"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:id="@+id/imag4"
+                    />
+
+                    <TextView
+                        android:layout_width="75dp"
+                        android:layout_height="150dp"
+                        android:id="@+id/cant_img"
+                        android:layout_gravity=""
+                        android:textColor="@color/colorBlanco"
+                        android:background="@color/background_footer"
+                        android:textStyle="normal|bold"
+                        android:fontFamily="sans-serif"
+                        android:textSize="30sp"
+                        android:textAlignment="center"
+                        />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
