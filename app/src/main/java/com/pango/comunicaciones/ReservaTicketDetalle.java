@@ -1,6 +1,8 @@
 package com.pango.comunicaciones;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -49,6 +51,28 @@ public class ReservaTicketDetalle extends AppCompatActivity {
         //LLamar a GetBusDetalles
         new GetBusDetalles().execute();
 
+    }
+
+    public void toReservaTicketListaPasajeros(View view){
+        Intent toReservaTicketListaPasajeros = new Intent(getApplicationContext(), ReservaTicketListaPasajeros.class);
+        toReservaTicketListaPasajeros.putExtra("CodigoTicket", ticket.Codigo);
+        startActivity(toReservaTicketListaPasajeros);
+        /*
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Closing Activity")
+                .setMessage("Are you sure you want to close this activity?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+                */
     }
 
     public class GetBusDetalles extends AsyncTask<String, String, String> {
