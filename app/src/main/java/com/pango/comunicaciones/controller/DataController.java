@@ -183,7 +183,7 @@ public class DataController extends AsyncTask<String,Void,Void> {
     protected void onPreExecute() {
         if(opcion=="get") {
             super.onPreExecute();
-            progressDialog = ProgressDialog.show(splashScreenActivity, "Loading", "Cargando publicaciones...");
+            //progressDialog = ProgressDialog.show(splashScreenActivity, "Loading", "Cargando publicaciones...");
         }
     }
     @Override
