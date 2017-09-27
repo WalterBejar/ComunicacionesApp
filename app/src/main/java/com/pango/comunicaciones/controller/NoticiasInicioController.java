@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class NoticiasInicioController
     View v;
     RecyclerView listViewNoticias;
     List<NoticiaModel> listaNoticias = new ArrayList<NoticiaModel>();
+    NoticiasInicioAdapter adapter;
     TextView cTitulo;
     TextView cFecha;
     ImageView cImagen;
@@ -33,6 +35,15 @@ public class NoticiasInicioController
     public NoticiasInicioController(View v){
         this.v = v;
         listViewNoticias = (RecyclerView) v.findViewById(R.id.listViewNoticias);
+        listViewNoticias.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // Primer render de la noticia
+                onNewsSelected(listaNoticias.get(0));
+                adapter.notifyItemChanged(0);
+                listViewNoticias.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
         //listViewNoticias.setHasFixedSize(true);
 
         cTitulo = (TextView) v.findViewById(R.id.txt_noticia_titulo);
@@ -57,7 +68,7 @@ public class NoticiasInicioController
         }
 
         try {
-            NoticiasInicioAdapter adapter = new NoticiasInicioAdapter(v.getContext(), listaNoticias, this);
+            adapter = new NoticiasInicioAdapter(v.getContext(), listaNoticias, this);
             LinearLayoutManager MyLayoutManager = new LinearLayoutManager(v.getContext());
             MyLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             if (listaNoticias.size() > 0 & listViewNoticias != null) {

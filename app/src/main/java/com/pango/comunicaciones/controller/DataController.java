@@ -58,7 +58,6 @@ public class DataController extends AsyncTask<String,Void,Void> {
         this.url=url;
         this.opcion=opcion;
         this.splashScreenActivity=splashScreenActivity;
-
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pango.comunicaciones.R;
@@ -20,7 +19,7 @@ import java.util.List;
  * Created by WalterBCH on 25/9/2017.
  */
 
-public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioViewHolder> {
+public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioViewHolder>{
 
     private List<NoticiaModel> data;
     private Context context;
@@ -62,16 +61,15 @@ public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioVi
                 notifyDataSetChanged();
             }
         });
-
-        if (position - 1 == getItemCount()) {
-            mListener.onNewsSelected(data.get(0));
-            notifyDataSetChanged();
-        }
     }
 
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void onFirstNewRender() {
+        notifyItemChanged(0);
     }
 
     // Interface para comunicarnos al controlador

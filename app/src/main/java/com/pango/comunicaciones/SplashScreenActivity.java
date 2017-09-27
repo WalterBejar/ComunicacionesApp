@@ -2,6 +2,8 @@ package com.pango.comunicaciones;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -13,7 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashScreenActivity extends AppCompatActivity {
-    private static final long SPLASH_SCREEN_DELAY = 3000;
+    //private static final long SPLASH_SCREEN_DELAY = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,24 @@ public class SplashScreenActivity extends AppCompatActivity {
         final DataController obj = new DataController("url","get", SplashScreenActivity.this);
         obj.execute(String.valueOf(1),String.valueOf(33));
 
+        final Handler h = new Handler();
+        h.postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                if (obj.getStatus() == AsyncTask.Status.FINISHED) {
+                    Intent mainIntent = new Intent()
+                            .setClass(SplashScreenActivity.this, MainActivity.class);
+                    startActivity(mainIntent);
+                }
 
-        TimerTask task = new TimerTask() {
+                h.postDelayed(this, 250);
+            }
+        }, 250);
+
+
+        /*TimerTask task = new TimerTask() {
             @Override
             public void run() {
 
@@ -45,10 +63,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // Simulate a long loading process on application startup.
         Timer timer = new Timer();
-        timer.schedule(task, SPLASH_SCREEN_DELAY);
-
-
-
+        timer.schedule(task, SPLASH_SCREEN_DELAY);*/
     }
 
 }
