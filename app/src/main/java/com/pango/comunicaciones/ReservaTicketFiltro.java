@@ -1,6 +1,7 @@
 package com.pango.comunicaciones;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -24,6 +25,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.google.gson.Gson;
 import com.pango.comunicaciones.model.GetTicketModel;
 import com.pango.comunicaciones.model.TicketModel;
@@ -50,6 +52,8 @@ public class ReservaTicketFiltro extends AppCompatActivity {
     Button botonBuscarTickets, botonEscogerFecha;
     Spinner spinnerOrigen, spinnerDestino;
 
+    ProgressDialog progressDialog;
+
     String origenEscogido;
     String destinoEscogido;
     String fechaEscogida;
@@ -70,6 +74,10 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         botonEscogerFecha = (Button) findViewById(R.id.botonEscogerFecha);
         spinnerOrigen = (Spinner) findViewById(R.id.spinnerOrigen);
         spinnerDestino = (Spinner) findViewById(R.id.spinnerDestino);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Conectándose al servidor");
+        progressDialog.setMessage("Por favor, espere...");
 
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {
@@ -141,12 +149,13 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressDialog.show();
             if (!escogioDestino)
                 destinoEscogido = "-";
             if (!escogioOrigen)
                 origenEscogido = "-";
             if (!escogioFecha)
-                fechaEscogida = "-";
+                fechaEscogida = "-";//Utils.getFechaHoy();
             cantidadTickets = 10;
         }
 
@@ -164,6 +173,7 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                     tickets = getTicketModel.Data;
                     filtroAdapter.notifyDataSetChanged();
             }
+            progressDialog.dismiss();
         }
 
         @Override
@@ -202,6 +212,7 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressDialog.show();
         }
 
         @Override
@@ -257,7 +268,7 @@ public class ReservaTicketFiltro extends AppCompatActivity {
                         }
                     });
             }
-            //new BuscarTickets().execute();
+            progressDialog.dismiss();
         }
 
         @Override

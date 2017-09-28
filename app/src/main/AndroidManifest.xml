@@ -26,7 +26,9 @@
         <activity android:name=".ReservaTicketFiltro" />
         <activity android:name=".ReservaTicketDetalle" />
         <activity android:name=".ReservaTicketListaPasajeros" />
-        <activity android:name=".ReservaTicketBuscarPasajeros"></activity>
+        <activity
+            android:name=".ReservaTicketBuscarPasajeros"
+            android:launchMode="singleTask" />
         <activity
             android:name=".ActImagDet"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

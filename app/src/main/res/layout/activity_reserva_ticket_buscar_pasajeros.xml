@@ -58,22 +58,21 @@
 
         <EditText
             android:id="@+id/textboxPasajeroEmpresa"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginBottom="7dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="Ingrese Empresa"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.571"
             app:layout_constraintLeft_toRightOf="@+id/textView12"
             app:layout_constraintRight_toLeftOf="@+id/botonBuscarPasajero" />
 
         <EditText
             android:id="@+id/textboxPasajeroNombre"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
@@ -81,29 +80,29 @@
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="Ingrese Nombre"
             app:layout_constraintBottom_toTopOf="@+id/textboxPasajeroEmpresa"
-            app:layout_constraintHorizontal_bias="0.571"
             app:layout_constraintLeft_toRightOf="@+id/textView11"
             app:layout_constraintRight_toLeftOf="@+id/botonBuscarPasajero"
             app:layout_constraintTop_toBottomOf="@+id/textboxPasajeroDNI" />
 
         <EditText
             android:id="@+id/textboxPasajeroDNI"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="Ingrese DNI"
             app:layout_constraintLeft_toRightOf="@+id/textView10"
             app:layout_constraintRight_toLeftOf="@+id/botonBuscarPasajero"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/botonBuscarPasajero"
+            android:onClick="clickEnBuscar"
             android:layout_width="65dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
@@ -120,6 +119,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout5"
+        android:background="@android:color/holo_green_dark"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginLeft="0dp"
@@ -141,6 +141,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="BUSCAR PASAJEROS"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -149,12 +152,14 @@
 
     <Button
         android:id="@+id/botonAgregarPasajeroALista"
+        android:background="@android:color/holo_green_dark"
+        android:onClick="clickEnAgregarSeleccionados"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:text="Button"
+        android:text="AGREGAR SELECCIONADOS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
