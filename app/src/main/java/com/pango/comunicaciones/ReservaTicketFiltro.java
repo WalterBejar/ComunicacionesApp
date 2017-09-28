@@ -78,6 +78,7 @@ public class ReservaTicketFiltro extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Conectándose al servidor");
         progressDialog.setMessage("Por favor, espere...");
+        progressDialog.setCancelable(false);
 
         myCalendar = Calendar.getInstance();
         date = new DatePickerDialog.OnDateSetListener() {

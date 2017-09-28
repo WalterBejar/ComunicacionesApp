@@ -65,6 +65,7 @@ public class ReservaTicketBuscarPasajeros extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Conectándose al servidor");
         progressDialog.setMessage("Por favor, espere...");
+        progressDialog.setCancelable(false);
 
         buscarAdapter = new BuscarAdapter();
         listaBuscarPasajeros.setAdapter(buscarAdapter);
