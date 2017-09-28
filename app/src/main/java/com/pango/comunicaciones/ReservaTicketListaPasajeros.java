@@ -57,6 +57,7 @@ public class ReservaTicketListaPasajeros extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Conectándose al servidor");
         progressDialog.setMessage("Por favor, espere...");
+        progressDialog.setCancelable(false);
         builder = new AlertDialog.Builder(this);
         builder.setTitle("Está a punto de eliminar un conjunto de reservas.");
         builder.setMessage("¿Desea continuar?");

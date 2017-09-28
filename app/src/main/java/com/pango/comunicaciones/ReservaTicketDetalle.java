@@ -61,6 +61,7 @@ public class ReservaTicketDetalle extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Conectándose al servidor");
         progressDialog.setMessage("Por favor, espere...");
+        progressDialog.setCancelable(false);
         builder = new AlertDialog.Builder(this);
         builder.setMessage("¿Desea continuar?");
         builder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
@@ -141,7 +142,7 @@ public class ReservaTicketDetalle extends AppCompatActivity {
 
                     if (ticket.Separado) {
                         botonGestionarReserva.setText("Eliminar reserva");
-                        Toast.makeText(getApplicationContext(),"Despues de pedir detalles ticket.Separado: "+ticket.Separado,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(),"Despues de pedir detalles ticket.Separado: "+ticket.Separado,Toast.LENGTH_SHORT).show();
                     }
                     else
                         botonGestionarReserva.setText("Reservar ticket");
