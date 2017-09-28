@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen_activity);
 
         final DataController obj = new DataController("url","get", SplashScreenActivity.this);
-        obj.execute(String.valueOf(1),String.valueOf(33));
+        obj.execute(String.valueOf(1),String.valueOf(10));
 
         final Handler h = new Handler();
         h.postDelayed(new Runnable()
@@ -39,6 +39,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     Intent mainIntent = new Intent()
                             .setClass(SplashScreenActivity.this, MainActivity.class);
                     startActivity(mainIntent);
+                    finish();
                 }else {
                     h.postDelayed(this, 250);
                 }

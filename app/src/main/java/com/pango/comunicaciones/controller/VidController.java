@@ -68,7 +68,7 @@ public class VidController extends AsyncTask<String,Void,Void> {
             if (opcion == "get") {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet get = new HttpGet(GlobalVariables.Urlbase + GlobalVariables.Urlbase2 + a + "/" + b + "/-");
+                    HttpGet get = new HttpGet(GlobalVariables.Urlbase + GlobalVariables.Urlbase2 + a + "/" + b + "/TP04");
                     get.setHeader("Authorization", "Bearer "+ GlobalVariables.token_auth);
                     response = httpClient.execute(get);
 
@@ -85,7 +85,7 @@ public class VidController extends AsyncTask<String,Void,Void> {
                         JSONObject c = video.getJSONObject(i);
                         String T = c.getString("Tipo");
                         //String A="TP02";
-                        if (T.equals("TP04")) {
+                        //if (T.equals("TP04")) {
 
                             String CodRegistro = c.getString("CodRegistro");
                             String Tipo = c.getString("Tipo");
@@ -117,7 +117,7 @@ public class VidController extends AsyncTask<String,Void,Void> {
                             }
                             //dataf.get(0);
                             videoList.add(new Video(CodRegistro, Tipo, icon, Autor, Fecha, Titulo, dataf,CantidadV));
-                        }
+                       // }
                     }
                 } catch (Exception ex) {
                     Log.w("Error get\n", ex);

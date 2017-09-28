@@ -68,7 +68,7 @@ public class ImgController extends AsyncTask<String,Void,Void> /*implements   Ab
             if (opcion == "get") {
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet get = new HttpGet(GlobalVariables.Urlbase + "entrada/getpaginated/" + a + "/" + b + "/-");
+                    HttpGet get = new HttpGet(GlobalVariables.Urlbase + "entrada/getpaginated/" + a + "/" + b + "/TP03");
                     get.setHeader("Authorization", "Bearer "+ GlobalVariables.token_auth);
                     response = httpClient.execute(get);
 
@@ -83,7 +83,7 @@ public class ImgController extends AsyncTask<String,Void,Void> /*implements   Ab
                         JSONObject c = image.getJSONObject(i);
                         String T = c.getString("Tipo");
                         //String A="TP02";
-                        if (T.equals("TP03")) {
+                       // if (T.equals("TP03")) {
 
                             String CodRegistro = c.getString("CodRegistro");
                             String Tipo = c.getString("Tipo");
@@ -113,7 +113,7 @@ public class ImgController extends AsyncTask<String,Void,Void> /*implements   Ab
                             }
                             // dataf.get(0);
                             imagenList.add(new Imagen(CodRegistro, Tipo, icon, Autor, Fecha, Titulo, dataf,cant_img));
-                        }
+                       // }
                     }
                 } catch (Exception ex) {
                     Log.w("Error get\n", ex);

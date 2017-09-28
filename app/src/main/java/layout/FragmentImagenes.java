@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.pango.comunicaciones.ActImag;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.adapter.ImgAdapter;
 import com.pango.comunicaciones.controller.ImgController;
 
 import static com.pango.comunicaciones.GlobalVariables.imagen2;
@@ -71,26 +72,31 @@ public class FragmentImagenes extends Fragment {
         }
     }
 /////////////////////////////////////////////////////////////////////////////////
-    ListView recList;
+    ListView recListImag;
+    Context context;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        context = container.getContext();
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_imagenes, container, false);
 
-        recList = (ListView) rootView.findViewById(R.id.list_imag);
+        recListImag = (ListView) rootView.findViewById(R.id.list_imag);
 
-        final ImgController obj = new ImgController(rootView,"url","get", FragmentImagenes.this);
-        obj.execute(String.valueOf(1),String.valueOf(32));
+        //final ImgController obj = new ImgController(rootView,"url","get", FragmentImagenes.this);
+        //obj.execute(String.valueOf(1),String.valueOf(10));
+
+        ImgAdapter ca = new ImgAdapter(context, GlobalVariables.imagen2);
+        recListImag.setAdapter(ca);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater2 = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.act_imag, null);
         builder.setView(v);
 
-        recList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        recListImag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("Click", "click en el elemento " + position + " de mi ListView");

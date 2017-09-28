@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity
         FragmentConfiguracion.OnFragmentInteractionListener
 
 {
+  //  private int mSelectedItem;
+  //  private static final String SELECTED_ITEM = "arg_selected_item";
 
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
@@ -72,9 +74,9 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         GlobalVariables.Urlbase=Recuperar_data();
-        Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
-        startActivity(toReservaTicketFiltro);
-        /*
+       // Intent toReservaTicketFiltro = new Intent(getApplicationContext(), ReservaTicketFiltro.class);
+        //startActivity(toReservaTicketFiltro);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
             this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,18 +96,47 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.getMenu().findItem(R.id.navigation_inicio).setChecked(true);
 
         getSupportActionBar().setTitle("Antappacay te informa");
-        */
+
+
     }
 
 
     @Override
     public void onBackPressed() {
+        MenuItem homeItem=bottomNavigationView.getMenu().getItem(0);
+        MenuItem noticiaItem = bottomNavigationView.getMenu().getItem(1);
+        MenuItem comItem = bottomNavigationView.getMenu().getItem(2);
+        MenuItem imagenItem = bottomNavigationView.getMenu().getItem(3);
+        MenuItem videoItem = bottomNavigationView.getMenu().getItem(4);
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        /*} else  if (mSelectedItem == videoItem.getItemId()||mSelectedItem == imagenItem.getItemId()) {
+
+                bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+
+                //para variar la seleccion de items
+                MenuItem menuItem = bottomNavigationView.getMenu().getItem(0);
+                menuItem.setChecked(false);
+
+
+                mSelectedItem=homeItem.getItemId();
+
+                //setSelectedItemId (homeItem.getItemId());
+                onNavigationItemSelected(homeItem);
+*/
+        }else {
             super.onBackPressed();
         }
+
+
+
+            /*{
+
+            super.onBackPressed();
+        }*/
     }
 
     @Override

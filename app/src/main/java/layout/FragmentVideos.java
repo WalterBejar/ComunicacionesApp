@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.pango.comunicaciones.ActVid;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.adapter.VidAdapter;
 import com.pango.comunicaciones.controller.VidController;
 import com.pango.comunicaciones.model.Imagen;
 
@@ -91,6 +92,7 @@ public class FragmentVideos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_videos, container, false);
         context = container.getContext();
@@ -100,8 +102,11 @@ public class FragmentVideos extends Fragment {
         llm_vid.setOrientation(LinearLayoutManager.VERTICAL);
 
 
-        final VidController obj = new VidController(rootView,"url","get", FragmentVideos.this);
-        obj.execute(String.valueOf(1),String.valueOf(32));
+       // final VidController obj = new VidController(rootView,"url","get", FragmentVideos.this);
+        //obj.execute(String.valueOf(1),String.valueOf(32));
+
+        VidAdapter ca = new VidAdapter(context, GlobalVariables.vidlist);
+        recListVid.setAdapter(ca);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater2 = getActivity().getLayoutInflater();

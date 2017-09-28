@@ -66,7 +66,7 @@ public class ComController extends AsyncTask<String,Void,Void> {
             if(opcion=="get"){
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet get = new HttpGet(GlobalVariables.Urlbase+GlobalVariables.Urlbase2+a+"/"+b+"/-");
+                    HttpGet get = new HttpGet(GlobalVariables.Urlbase+GlobalVariables.Urlbase2+a+"/"+b+"/TP02");
                     get.setHeader("Authorization", "Bearer "+ GlobalVariables.token_auth);
                     response = httpClient.execute(get);
 
@@ -83,7 +83,7 @@ public class ComController extends AsyncTask<String,Void,Void> {
                         //String A="TP02"
 
                         //comunicado:2
-                        if(T.equals("TP02")) {
+                       // if(T.equals("TP02")) {
                             inc+=1;
                             String CodRegistro = c.getString("CodRegistro");
                             String Tipo = c.getString("Tipo");
@@ -115,7 +115,7 @@ public class ComController extends AsyncTask<String,Void,Void> {
                                 dataf.get(0);
                             }*/
                             comList.add(new Comunicado(CodRegistro, Tipo, icon, Autor, Fecha, Titulo, Descripcion, dataf));
-                        }
+                        //}
                     }
                 }catch (Exception ex){
                     Log.w("Error get\n",ex);

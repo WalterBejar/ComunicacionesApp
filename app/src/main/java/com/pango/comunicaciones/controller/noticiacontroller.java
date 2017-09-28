@@ -66,15 +66,12 @@ public class noticiacontroller extends AsyncTask<String,Void,Void> {
             if(opcion=="get"){
                 try {
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpGet get = new HttpGet(GlobalVariables.Urlbase+GlobalVariables.Urlbase2+a+"/"+b+"/-");
+                    HttpGet get = new HttpGet(GlobalVariables.Urlbase+GlobalVariables.Urlbase2+a+"/"+b+"/TP01");
                     get.setHeader("Authorization", "Bearer "+ GlobalVariables.token_auth);
                     response = httpClient.execute(get);
                     String respstring = EntityUtils.toString(response.getEntity());
 
-
-
                     JSONObject respJSON = new JSONObject(respstring);
-
 
                     JSONArray noticias = respJSON.getJSONArray("Data");
 
@@ -85,7 +82,7 @@ public class noticiacontroller extends AsyncTask<String,Void,Void> {
                         JSONObject c = noticias.getJSONObject(i);
                         String T =c.getString("Tipo");
                         //String A="TP02";
-                        if(T.equals("TP01")) {
+                        //if(T.equals("TP01")) {
 
                             String CodRegistro = c.getString("CodRegistro");
                             String Tipo = c.getString("Tipo");
@@ -112,7 +109,7 @@ public class noticiacontroller extends AsyncTask<String,Void,Void> {
                             }
                             //dataf.get(0);
                             noticiaList.add(new Noticias(CodRegistro, Tipo, icon, Autor, Fecha, Titulo, Descripcion, dataf));
-                        }
+                        //}
                     }
                 }catch (Exception ex){
                     Log.w("Error get\n",ex);

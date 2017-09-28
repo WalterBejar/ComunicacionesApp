@@ -25,12 +25,18 @@ public class GlobalVariables {
     public static String url_token="membership/authenticate?username=antapaccay&password=Tintaya123.&domain=anyaccess";
 
 
-
-
+    public static String CodPersona;
+    public static String Nombres;
 
     //var global de noticias
     public static List<Noticias> noticias2 = new ArrayList<>();
     public static int contador;
+
+    public static int contador1;
+    public static int contador2;
+    public static int contador3;
+    public static int contador4;
+
     public static int cont_item;
     public static Noticias not2pos;
     public static boolean doclic=false;
@@ -75,5 +81,8 @@ public class GlobalVariables {
     public static String cod_public_com;
 
     public static int cont_alert=1;
+
+
+    public static int con_status;
 
 }

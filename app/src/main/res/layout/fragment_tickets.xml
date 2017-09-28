@@ -14,13 +14,6 @@
     <!--  android:background="@color/colorPrimaryDark"-->
 
     <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
 
     <TextView
         android:id="@+id/titulo"
@@ -66,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Contraseña"
                 android:imeActionId="@+id/login"
-                android:imeActionLabel="Sing in"
+                android:imeActionLabel="OK"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -85,3 +78,5 @@
 
     </LinearLayout>
 </LinearLayout>
+
+

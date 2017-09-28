@@ -86,12 +86,14 @@ public class VidAdapter extends ArrayAdapter<Video> {
             vImagVid.setVisibility(View.GONE);
 
         }else if(tempcant_vid==1){
+
+            //String url_vid_img="https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetminFile/4039/MACROSS%202012%20SILVER%20MOO%20RED%20MOON.jpg";
             String url_vid_img=data.get(position).getFiledata().get(0).getUrlmin_vid().replaceAll("\\s","%20");
             vcant_vid.setVisibility(View.GONE);
             vEtiqueta.setVisibility(View.GONE);
             vPlay.setVisibility(View.VISIBLE);
             Glide.with(context)
-                    .load(GlobalVariables.Urlbase+url_vid_img.replaceAll("\\s","%20"))
+                    .load(GlobalVariables.Urlbase+url_vid_img)
                     .into(vImagVid);
         }else{
 
@@ -100,7 +102,7 @@ public class VidAdapter extends ArrayAdapter<Video> {
 
             vcant_vid.setText(tempcant_vid+"");
             Glide.with(context)
-                    .load(GlobalVariables.Urlbase+url_vid_img.replaceAll("\\s","%20"))
+                    .load(GlobalVariables.Urlbase+url_vid_img)
                     .into(vImagVid);
 
         }

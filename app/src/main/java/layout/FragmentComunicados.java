@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.pango.comunicaciones.ActComDetalle;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.adapter.ComAdapter;
 import com.pango.comunicaciones.controller.ComController;
 import com.pango.comunicaciones.model.Comunicado;
 
@@ -79,6 +80,7 @@ public class FragmentComunicados extends Fragment {
     int pag=1;
     int celda=20;
     private int pageCount = 0;
+    Context context;
 
     private boolean isThereMore;
     List<Comunicado> lcom;
@@ -88,12 +90,16 @@ public class FragmentComunicados extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        context = container.getContext();
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_comunicados, container, false);
         recListCom = (ListView) rootView.findViewById(R.id.l_frag_com);
 
-        final ComController obj = new ComController(rootView,"url","get", FragmentComunicados.this);
-        obj.execute(String.valueOf(1),String.valueOf(33));
+        //final ComController obj = new ComController(rootView,"url","get", FragmentComunicados.this);
+        //obj.execute(String.valueOf(1),String.valueOf(10));
+
+        ComAdapter ca = new ComAdapter(context,GlobalVariables.comlist);
+        recListCom.setAdapter(ca);
 
         recListCom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

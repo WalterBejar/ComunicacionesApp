@@ -28,7 +28,10 @@ tools:context="layout.FragmentConfiguracion"
     android:layout_below="@+id/textView"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:text="http://192.168.1.200/SCOM_Service/api/"
+    android:text=""
+    android:inputType="text"
+    android:imeOptions="actionNext"
+
     />
 
 
@@ -63,6 +66,8 @@ tools:context="layout.FragmentConfiguracion"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:layout_marginBottom="10dp"
+
+
     />
 
 
@@ -70,7 +75,11 @@ tools:context="layout.FragmentConfiguracion"
     android:id="@+id/dom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/conf_dom"/>
+    android:layout_below="@+id/conf_dom"
+    android:inputType="text"
+    android:imeOptions="actionDone"
+
+    />
 
 <Button
     android:text="Guardar cambios"

@@ -91,22 +91,16 @@ public class FragmentTickets extends Fragment {
                 String a=tx_user.getText().toString();
                 String b=tx_pass.getText().toString();
                 String c=Recuperar_data();
-               /* user_auth.clear();
-                user_auth.add(a);
-                user_auth.add(b);
-                user_auth.add(c);*/
 
-
-                Toast.makeText(v.getContext(),"logueo",Toast.LENGTH_SHORT).show();
-                 final AuthController obj = new AuthController(rootView,"url","post", FragmentTickets.this);
+               // Toast.makeText(v.getContext(),"logueo",Toast.LENGTH_SHORT).show();
+                 final AuthController obj = new AuthController(rootView,"url","get", FragmentTickets.this);
                 obj.execute(a,b,c);
 
 //probar
-        //        Intent intent = new Intent(v.getContext(), ActFiltro.class);
+           //     Intent intent = new Intent(v.getContext(), ActFiltro.class);
           //      startActivity(intent);
 
             }});
-
 
         return rootView;
     }
@@ -119,6 +113,8 @@ public class FragmentTickets extends Fragment {
         //Toast.makeText(this.getActivity(),dominio_user, Toast.LENGTH_SHORT).show();
         return dominio_user;
     }
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -98,7 +98,7 @@ public class ActVidDet extends AppCompatActivity {
                 if (position == 0) {
                     // Si tenemos una posición guardada, el vídeo comienza ahí.
                     //videoExtendida.start();
-                    videoExtendida.pause();
+                    videoExtendida.start();
 
 
                 } else {
@@ -188,7 +188,7 @@ public class ActVidDet extends AppCompatActivity {
 
         //Toast.makeText(this.getActivity(), nombre, Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this,"se recupero"+dominio_user, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,"se recupero"+dominio_user, Toast.LENGTH_SHORT).show();
         return dominio_user;
     }
 

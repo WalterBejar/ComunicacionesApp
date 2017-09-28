@@ -32,7 +32,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/icon_imag" />
+            android:id="@+id/icon_imag"
+            android:tint = "@color/colorPrimary"
+
+            />
 
         <TextView
             android:text="TextView"
@@ -94,6 +97,7 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:id="@+id/imag1"
+                    android:scaleType="fitXY"
 
                     />
 

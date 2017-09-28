@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.pango.comunicaciones.ActNotDetalle;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.adapter.NoticiaAdapter;
 import com.pango.comunicaciones.controller.noticiacontroller;
 import com.pango.comunicaciones.model.Noticias;
 
@@ -102,8 +103,13 @@ int a;
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-        final noticiacontroller obj = new noticiacontroller(rootView,"url","get", FragmentNoticias.this);
-        obj.execute(String.valueOf(1),String.valueOf(33));
+
+
+       // final noticiacontroller obj = new noticiacontroller(rootView,"url","get", FragmentNoticias.this);
+        //obj.execute(String.valueOf(1),String.valueOf(10));
+
+        NoticiaAdapter ca = new NoticiaAdapter(context,GlobalVariables.noticias2);
+        recList.setAdapter(ca);
 
 
         //return inflater.inflate(R.layout.fragment_noticias, container, false);

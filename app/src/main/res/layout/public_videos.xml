@@ -32,7 +32,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="17dp" />
+            android:layout_marginTop="17dp"
+            android:tint = "@color/colorPrimary"
+
+            />
 
 
         <TextView
@@ -75,8 +78,8 @@
             <ImageView
                 android:id="@+id/imag_vid"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:src="@drawable/splash_logo"
                 android:transitionName="Imagen_compartida" />
 
