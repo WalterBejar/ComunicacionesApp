@@ -47,6 +47,7 @@ public class VideosInicioController {
                 VideoModel videoModel = new VideoModel();
                 videoModel.setTitulo(video.getTitulo());
                 videoModel.setFecha(formatoRender.format(formatoInicial.parse(video.getFecha())));
+                videoModel.setUrlImagen(video.getFiledata().get(0).getUrlmin_vid());
                 listaVideos.add(videoModel);
             }
 

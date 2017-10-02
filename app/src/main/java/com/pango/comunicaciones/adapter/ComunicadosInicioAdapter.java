@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.model.ComunicadoModel;
 import com.pango.comunicaciones.model.ImagenModel;
@@ -45,7 +46,7 @@ public class ComunicadosInicioAdapter  extends RecyclerView.Adapter<ComunicadosI
         holder.nTitulo.setText(data.get(position).getTitulo());
 
         Glide.with(context)
-                .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
+                .load(GlobalVariables.Urlbase + data.get(position).getUrlImagen().replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {

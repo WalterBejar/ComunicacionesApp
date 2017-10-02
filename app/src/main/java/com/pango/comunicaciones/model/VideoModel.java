@@ -16,6 +16,7 @@ public class VideoModel {
     private String titulo;
     private List<Vid_Gal> filedata;
     private  int cant_video;
+    private String urlImagen;
 
     public VideoModel() {
     }
@@ -93,5 +94,13 @@ public class VideoModel {
 
     public void setCant_video(int cant_video) {
         this.cant_video = cant_video;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public String getUrlImagen() {
+        return this.urlImagen;
     }
 }

@@ -16,6 +16,7 @@ public class ImagenModel {
     private String titulo;
     private List<Img_Gal> filedata;
     private int count_img;
+    private String urlImagen;
 
     public ImagenModel() {
     }
@@ -93,5 +94,13 @@ public class ImagenModel {
 
     public void setCount_img(int count_img) {
         this.count_img = count_img;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public String getUrlImagen() {
+        return this.urlImagen;
     }
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.model.VideoModel;
 import com.pango.comunicaciones.viewholder.VideosInicioViewHolder;
@@ -44,7 +45,7 @@ public class VideosInicioAdapter extends RecyclerView.Adapter<VideosInicioViewHo
         holder.nTitulo.setText(data.get(position).getTitulo());
 
         Glide.with(context)
-                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
+                .load(GlobalVariables.Urlbase + data.get(position).getUrlImagen().replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {

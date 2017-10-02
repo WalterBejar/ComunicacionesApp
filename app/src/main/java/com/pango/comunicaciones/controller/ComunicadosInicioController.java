@@ -5,13 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.adapter.ComunicadosInicioAdapter;
 import com.pango.comunicaciones.adapter.NoticiasInicioAdapter;
+import com.pango.comunicaciones.model.Comunicado;
 import com.pango.comunicaciones.model.ComunicadoModel;
+import com.pango.comunicaciones.model.Imagen;
+import com.pango.comunicaciones.model.ImagenModel;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Walter Béjar on 26/09/2017.
@@ -22,6 +29,8 @@ public class ComunicadosInicioController {
     View v;
     RecyclerView listViewComunicados;
     List<ComunicadoModel> listaComunicados = new ArrayList<ComunicadoModel>();
+    List<Comunicado> comunicados = GlobalVariables.comlist;
+
 
     public ComunicadosInicioController(View v){
         this.v = v;
@@ -30,7 +39,18 @@ public class ComunicadosInicioController {
     }
 
     public void Execute() {
-        for (int i = 0; i < 10; i++)
+        DateFormat formatoInicial = new SimpleDateFormat("yyyy-mm-dd'T'00:00:00", new Locale("es", "ES"));
+        DateFormat formatoRender = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+
+        try {
+            for (Comunicado comunicado : comunicados) {
+                ComunicadoModel comunicadoModel = new ComunicadoModel();
+                comunicadoModel.setTitulo(comunicado.getTitulo());
+                comunicadoModel.setFecha(formatoRender.format(formatoInicial.parse(comunicado.getFecha())));
+                comunicadoModel.setUrlImagen(comunicado.getFiledata().get(2));
+                listaComunicados.add(comunicadoModel);
+            }
+        /*for (int i = 0; i < 10; i++)
         {
             ComunicadoModel comunicado = new ComunicadoModel();
             comunicado.setTitulo("Este es el titulo del comunicado Nro: " + (i+1));
@@ -38,7 +58,7 @@ public class ComunicadosInicioController {
             listaComunicados.add(comunicado);
         }
 
-        try {
+        try {*/
             ComunicadosInicioAdapter adapter = new ComunicadosInicioAdapter(v.getContext(), listaComunicados);
             LinearLayoutManager MyLayoutManager = new LinearLayoutManager(v.getContext());
             MyLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

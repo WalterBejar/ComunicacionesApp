@@ -16,7 +16,7 @@ public class ComunicadoModel {
     private String titulo;
     private String descripcion;
     private ArrayList<String> filedata;
-
+    private String urlImagen;
 
     public ComunicadoModel() {
     }
@@ -94,5 +94,13 @@ public class ComunicadoModel {
 
     public void setFiledata(ArrayList<String> filedata) {
         this.filedata = filedata;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public String getUrlImagen() {
+        return this.urlImagen;
     }
 }

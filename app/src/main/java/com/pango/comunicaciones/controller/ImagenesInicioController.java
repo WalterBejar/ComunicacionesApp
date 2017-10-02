@@ -47,6 +47,7 @@ public class ImagenesInicioController {
                 ImagenModel imagenModel = new ImagenModel();
                 imagenModel.setTitulo(imagen.getTitulo());
                 imagenModel.setFecha(formatoRender.format(formatoInicial.parse(imagen.getFecha())));
+                imagenModel.setUrlImagen(imagen.getFiledata().get(0).getUrlmin_imag());
                 listaImagenes.add(imagenModel);
             }
 
