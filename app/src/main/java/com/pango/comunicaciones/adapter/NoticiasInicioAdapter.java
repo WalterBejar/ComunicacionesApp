@@ -51,7 +51,7 @@ public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioVi
             holder.relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
         Glide.with(context)
-                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
+                .load(data.get(position).getUrlImagen().replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {

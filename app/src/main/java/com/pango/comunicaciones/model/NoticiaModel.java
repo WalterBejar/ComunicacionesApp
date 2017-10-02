@@ -10,6 +10,7 @@ public class NoticiaModel {
     private String fecha;
     private String titulo;
     private String descripcion;
+    private String urlImagen;
     private ArrayList<String> filedata;
 
     private boolean isChecked;
@@ -107,5 +108,13 @@ public class NoticiaModel {
 
     public void setIsChecked(boolean isChecked) {
         this.isChecked = isChecked;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
+    public String getUrlImagen() {
+        return this.urlImagen;
     }
 }

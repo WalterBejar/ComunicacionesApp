@@ -69,6 +69,7 @@ public class NoticiasInicioController
                 noticiaModel.setTitulo(noticia.getTitulo());
                 noticiaModel.setDescripcion(noticia.getDescripcion());
                 noticiaModel.setFecha(formatoRender.format(formatoInicial.parse(noticia.getFecha())));
+                noticiaModel.setUrlImagen(noticia.getFiledata().get(2));
                 listaNoticias.add(noticiaModel);
             }
 
@@ -111,7 +112,7 @@ public class NoticiasInicioController
         cFecha.setText(noticia.getFecha());
         cDescripcion.setText(noticia.getDescripcion());
         Glide.with(v.getContext())
-                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
+                .load(noticia.getUrlImagen().replaceAll("\\s", "%20"))
                 .into(cImagen);
         refreshState();
         noticia.setIsChecked(true);
