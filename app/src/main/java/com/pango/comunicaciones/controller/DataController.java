@@ -84,9 +84,6 @@ int varcant;
 
        }
 
-
-
-
         return null;
     }
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {

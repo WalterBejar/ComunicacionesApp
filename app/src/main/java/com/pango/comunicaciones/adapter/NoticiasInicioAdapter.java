@@ -51,7 +51,7 @@ public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioVi
             holder.relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
         Glide.with(context)
-                .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
+                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {

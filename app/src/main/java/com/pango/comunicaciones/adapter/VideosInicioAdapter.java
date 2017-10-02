@@ -44,7 +44,7 @@ public class VideosInicioAdapter extends RecyclerView.Adapter<VideosInicioViewHo
         holder.nTitulo.setText(data.get(position).getTitulo());
 
         Glide.with(context)
-                .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
+                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {

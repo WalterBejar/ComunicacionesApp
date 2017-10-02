@@ -9,12 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.adapter.NoticiasInicioAdapter;
 import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.model.NoticiaModel;
+import com.pango.comunicaciones.model.Noticias;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by WalterBCH on 25/9/2017.
@@ -26,6 +31,7 @@ public class NoticiasInicioController
     View v;
     RecyclerView listViewNoticias;
     List<NoticiaModel> listaNoticias = new ArrayList<NoticiaModel>();
+    List<Noticias> noticias = GlobalVariables.noticias2;
     NoticiasInicioAdapter adapter;
     TextView cTitulo;
     TextView cFecha;
@@ -53,8 +59,20 @@ public class NoticiasInicioController
     }
 
     public void Execute() {
-        for (int i = 0; i < 10; i++)
-        {
+        DateFormat formatoInicial = new SimpleDateFormat("yyyy-mm-dd'T'00:00:00", new Locale("es", "ES"));
+        DateFormat formatoRender = new SimpleDateFormat("EEEE d 'de' MMMM 'de' yyyy", new Locale("es", "ES"));
+
+        try {
+
+            for (Noticias noticia : noticias) {
+                NoticiaModel noticiaModel = new NoticiaModel();
+                noticiaModel.setTitulo(noticia.getTitulo());
+                noticiaModel.setDescripcion(noticia.getDescripcion());
+                noticiaModel.setFecha(formatoRender.format(formatoInicial.parse(noticia.getFecha())));
+                listaNoticias.add(noticiaModel);
+            }
+
+        /*for (int i = 0; i < 10; i++) {
             NoticiaModel noticia = new NoticiaModel();
             noticia.setTitulo("Este es el titulo de la noticia Nro: " + (i+1));
             String detalle = "Este es el detalle de la noticia es un detalle corto";
@@ -65,9 +83,9 @@ public class NoticiasInicioController
             noticia.setDescripcion(detalle);
             noticia.setFecha("21-09-2017");
             listaNoticias.add(noticia);
-        }
+        }*/
 
-        try {
+
             adapter = new NoticiasInicioAdapter(v.getContext(), listaNoticias, this);
             LinearLayoutManager MyLayoutManager = new LinearLayoutManager(v.getContext());
             MyLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -93,7 +111,7 @@ public class NoticiasInicioController
         cFecha.setText(noticia.getFecha());
         cDescripcion.setText(noticia.getDescripcion());
         Glide.with(v.getContext())
-                .load("https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/media/GetImagen/4056/CUMPLEAÑOS.jpg".replaceAll("\\s", "%20"))
+                .load("http://radiokinsachata.pe/archivos/k006.png".replaceAll("\\s", "%20"))
                 .into(cImagen);
         refreshState();
         noticia.setIsChecked(true);

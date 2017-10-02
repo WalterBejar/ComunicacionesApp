@@ -61,7 +61,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
+                    android:layout_height="160dp"
                     app:srcCompat="@drawable/ic_menu_noticias"
                     android:tint = "@color/colorPrimary"
                     android:id="@+id/img_noticia"
@@ -71,7 +71,8 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="14dp"
+                    android:layout_height="match_parent"
+                    android:maxLines="7"
                     android:layout_below="@+id/img_noticia"
                     android:id="@+id/txt_noticia_titulo"
                     android:layout_marginTop="5dp"
@@ -93,6 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLines="7"
+                    android:layout_marginTop="5dp"
                     android:layout_below="@+id/txt_noticia_fecha"
                     android:id="@+id/txt_noticia_contenido"
                     android:text="No es un secreto que toda intervención quirúrgica tiene riesgos, aun así quinceañeras y maduritas confían en el bisturí para arreglar determinadas áreas de sus cuerpos. Será por una simple moda o una alternativa para mejorar sus vidas.
@@ -104,18 +106,19 @@ Cada vez el pensamiento de los arequipeños está cambiando, ahora la imagen per
                     android:text="Leer noticia completa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt_noticia_contenido"
                     android:id="@+id/txt_leer_mas"
-                    android:layout_alignParentRight="true"
                     android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"
+                    android:layout_below="@+id/txt_noticia_contenido"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="8dp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.7dp"
                     android:id="@+id/separator"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:background="@android:color/darker_gray"
                     android:layout_below="@+id/txt_leer_mas"/>
 
