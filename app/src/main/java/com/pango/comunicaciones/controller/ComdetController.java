@@ -59,8 +59,6 @@ public class ComdetController extends AsyncTask<String,Void,Void> {
         this.actComDetalle=actComDetalle;
         // recList=(ListView) v.findViewById(R.id.list_recycler);
 
-
-
         //recList.setOnScrollListener(this);
     }
     @Override
