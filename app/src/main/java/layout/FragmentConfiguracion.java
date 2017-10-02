@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.MainActivity;
 import com.pango.comunicaciones.R;
+import com.pango.comunicaciones.SplashScreenActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,19 +91,40 @@ private Switch sw_sonido;
 
         b_save = (Button) rootView.findViewById(R.id.b_save);
 
+      //
 
 
 
         b_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // boolean isValidUrl(urlvalido);
+
+
+                //boolean est=URLUtil.isValidUrl("https:/app.antapaccay.com.pe/proportal/scom_service/api");
+
+                String a = url_base.getText().toString().replace(" ","");
+
+                boolean est=URLUtil.isValidUrl(url_base.getText().toString());
+                String ultimo = a.substring(a.length() - 1);
+
+
+
+
+
+                if(est==true&ultimo.equals("/")){
                 Registrar(v);
                 Recuperar_data();
                 //getActivity().getFragmentManager().popBackStack();
                 getActivity().finish();
                 GlobalVariables.cont_alert=1;////////////////////////////
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
                 startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity(), "la url es incorrecta", Toast.LENGTH_SHORT).show();
+
+                }
+
 
             }
         });
@@ -163,6 +186,9 @@ private Switch sw_sonido;
 
 
     public void Registrar(View v) {
+
+
+
         SharedPreferences url_save = this.getActivity().getSharedPreferences("datos", Context.MODE_PRIVATE);
         SharedPreferences dominio = this.getActivity().getSharedPreferences("dom", Context.MODE_PRIVATE);
 

@@ -62,15 +62,27 @@ int varcant;
 
     @Override
     protected Void doInBackground(String... params) {
-        String a=params[0];
-        String b=params[1];
-        getToken gettoken=new getToken();
-        gettoken.getToken();
+        String a = params[0];
+        String b = params[1];
 
-        obtener_noticia(a,b);
-        obtener_comunicado(a,b);
-        obtener_imagen(a,b);
-        obtener_video(a,b);
+       if (GlobalVariables.Urlbase.equals("")){
+
+           obtener_noticia(a,b);
+           obtener_comunicado(a,b);
+           obtener_imagen(a,b);
+           obtener_video(a,b);
+
+    } else {
+
+           getToken gettoken=new getToken();
+           gettoken.getToken();
+
+           obtener_noticia(a,b);
+           obtener_comunicado(a,b);
+           obtener_imagen(a,b);
+           obtener_video(a,b);
+
+       }
 
 
 

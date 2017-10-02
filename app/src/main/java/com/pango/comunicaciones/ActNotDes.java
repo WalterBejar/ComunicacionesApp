@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pango.comunicaciones.adapter.DescarAdap;
 
@@ -52,8 +53,6 @@ public class ActNotDes extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-       int a= 12;//         Toast.makeText(context,"Boton detalles: "+position,Toast.LENGTH_LONG);
-        int pos=position;
                       downloadManager=(DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
 
@@ -68,8 +67,9 @@ public class ActNotDes extends AppCompatActivity {
                         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                         Long reference = downloadManager.enqueue(request);
 
-//%20
-                     //   Toast.makeText(context,"Boton detalles: "+position,Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Descargando...", Toast.LENGTH_SHORT).show();
+
+
 
             }
         });

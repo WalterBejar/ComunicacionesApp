@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pango.comunicaciones.adapter.DesComAdap;
 
@@ -20,9 +21,6 @@ public class ActComDes extends AppCompatActivity {
 
     ImageButton combutton;
     DownloadManager downloadManager;
-    Context context;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +35,10 @@ public class ActComDes extends AppCompatActivity {
 
 
 
-/*
-        button=(ImageButton) findViewById(R.id.icon_des);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                downloadManager=(DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri uri=Uri.parse("http://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf9GsdJZOxuApw8q86bV211L8tPhh1RB3zj6qIJbfVV9HwIBwlfg");
-                DownloadManager.Request request= new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Long reference = downloadManager.enqueue(request);
-
-            }
-        });
-
-*/
         com_listdes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //         Toast.makeText(context,"Boton detalles: "+position,Toast.LENGTH_LONG);
                 int pos=position;
                 downloadManager=(DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
@@ -70,6 +52,8 @@ public class ActComDes extends AppCompatActivity {
                 DownloadManager.Request request= new DownloadManager.Request(uri);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 Long reference = downloadManager.enqueue(request);
+                Toast.makeText(getApplicationContext(), "Descargando...", Toast.LENGTH_SHORT).show();
+
 
 //%20
                 //   Toast.makeText(context,"Boton detalles: "+position,Toast.LENGTH_LONG);

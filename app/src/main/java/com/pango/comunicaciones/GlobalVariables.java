@@ -20,7 +20,7 @@ import java.util.List;
 public class GlobalVariables {
 
     public static String token_auth=null;//tendra el token con la autenticacion
-    public static String Urlbase = "https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/";
+    public static String Urlbase="";//= "https://app.antapaccay.com.pe/Proportal/SCOM_Service/api/";
     public static String Urlbase2 = "entrada/getpaginated/";
     public static String url_token="membership/authenticate?username=antapaccay&password=Tintaya123.&domain=anyaccess";
 

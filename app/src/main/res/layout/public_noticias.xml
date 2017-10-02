@@ -84,7 +84,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@+id/txfecha"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            />
 
         <TextView
             android:layout_width="match_parent"

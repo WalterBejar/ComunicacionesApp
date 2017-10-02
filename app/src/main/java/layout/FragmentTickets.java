@@ -17,6 +17,8 @@ import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.controller.AuthController;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,11 +93,16 @@ public class FragmentTickets extends Fragment {
                 String a=tx_user.getText().toString();
                 String b=tx_pass.getText().toString();
                 String c=Recuperar_data();
+                if(c.equals("")){
+            Toast.makeText(v.getContext(),"El valor de login de dominio no existe, ve a configuraciones para añadirlo",Toast.LENGTH_SHORT).show();
 
-               // Toast.makeText(v.getContext(),"logueo",Toast.LENGTH_SHORT).show();
-                 final AuthController obj = new AuthController(rootView,"url","get", FragmentTickets.this);
-                obj.execute(a,b,c);
+            }else {
 
+
+    // Toast.makeText(v.getContext(),"logueo",Toast.LENGTH_SHORT).show();
+    final AuthController obj = new AuthController(rootView, "url", "get", FragmentTickets.this);
+    obj.execute(a, b, c);
+}
 //probar
            //     Intent intent = new Intent(v.getContext(), ActFiltro.class);
           //      startActivity(intent);

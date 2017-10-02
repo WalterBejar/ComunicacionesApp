@@ -1,6 +1,8 @@
 package com.pango.comunicaciones.controller;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -170,10 +172,12 @@ public class NotdetController extends AsyncTask<String,Void,Void> {
                     tx4.setText(notdetArray.get(3));
                     }*/
                 content.setWebViewClient(new MyWebViewClient());
+
                 content.loadDataWithBaseURL("",notdetArray.get(3) , "text/html", "UTF-8", "");
                 WebSettings settings=content.getSettings();
                 settings.setJavaScriptEnabled(true);
 
+                //content.getSettings().setBuiltInZoomControls(true);
 
                 if(des_data.size()==0||count_files==0){
                     adj.setVisibility(View.GONE);
@@ -200,7 +204,17 @@ public class NotdetController extends AsyncTask<String,Void,Void> {
 
     private class MyWebViewClient extends WebViewClient {
         public boolean shouldOverrideUrlLoading(WebView view, String url){
-            view.loadUrl(url);
+
+            //view.loadUrl(url);
+
+            if (Uri.parse(url).getHost().equals("")) {
+                // This is my web site, so do not override; let my WebView load the page
+                return false;
+            }
+            // Otherwise, the link is not for a page on my site, so launch another Activity that handles URLs
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            actNotDet.startActivity(intent);
+           // return true;
             return true;
 
         }
