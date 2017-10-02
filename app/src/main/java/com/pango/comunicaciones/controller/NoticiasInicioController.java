@@ -112,7 +112,7 @@ public class NoticiasInicioController
         cFecha.setText(noticia.getFecha());
         cDescripcion.setText(noticia.getDescripcion());
         Glide.with(v.getContext())
-                .load(noticia.getUrlImagen().replaceAll("\\s", "%20"))
+                .load(GlobalVariables.Urlbase + noticia.getUrlImagen().replaceAll("\\s", "%20"))
                 .into(cImagen);
         refreshState();
         noticia.setIsChecked(true);

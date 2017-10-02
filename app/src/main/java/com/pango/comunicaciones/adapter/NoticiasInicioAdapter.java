@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.pango.comunicaciones.GlobalVariables;
 import com.pango.comunicaciones.R;
 import com.pango.comunicaciones.controller.NoticiasInicioController;
 import com.pango.comunicaciones.model.NoticiaModel;
@@ -51,7 +52,7 @@ public class NoticiasInicioAdapter extends RecyclerView.Adapter<NoticiasInicioVi
             holder.relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
         Glide.with(context)
-                .load(data.get(position).getUrlImagen().replaceAll("\\s", "%20"))
+                .load(GlobalVariables.Urlbase + data.get(position).getUrlImagen().replaceAll("\\s", "%20"))
                 .into(holder.nImagen);
 
         holder.nImagen.setOnClickListener(new View.OnClickListener() {
